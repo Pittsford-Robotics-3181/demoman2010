@@ -1,7 +1,0 @@
-TODO:
-
-  * Fix rampTo()
-  * Fix kickBall()
-  * Improve the inputs of kickBall() so that the robot can kick autonomously
-  * Rework imports to only pull what we need
-  * Make sure the solenoids are mapped properly
