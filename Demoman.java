@@ -115,22 +115,14 @@ public class Demoman extends IterativeRobot {
 		// Left
 		double leftDelta = leftTarget - lastLeftSpeed;
 		if (Math.abs(leftDelta) > rampingConstant) {
-			if (leftDelta < 0) {
-				leftDelta = -1 * rampingConstant;
-			} else {
-				leftDelta = rampingConstant;
-			}
+			leftDelta = ((leftDelta < 0) ? -1 : 1) * rampingConstant;
 		}
 		lastLeftSpeed += leftDelta;
 		
 		// Right
 		double rightDelta = rightTarget - lastRightSpeed;
 		if (Math.abs(rightDelta) > rampingConstant) {
-			if (rightDelta < 0) {
-				rightDelta = -1 * rampingConstant;
-			} else {
-				rightDelta = rampingConstant;
-			}
+			rightDelta = ((rightDelta < 0) ? -1 : 1) * rampingConstant;
 		}
 		lastRightSpeed += rightDelta;
 	
