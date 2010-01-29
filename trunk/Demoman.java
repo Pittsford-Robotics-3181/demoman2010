@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.*;
 *						(The Chargin Scottsman)
 *		Filename:	Demoman.java
 *		Authors:	@eric
-*					@ben
+*				@ben
 *					
 *		This file is the main robot controller.  It runs all the loops, and
 *		generally makes things happen.
@@ -82,7 +82,7 @@ public class Demoman extends IterativeRobot {
 	/*** Periodic Routines ***/
 		// Where stuff happens
 	public void disabledPeriodic() {
-		Watchdog.getInstance.feed();
+		Watchdog.getInstance().feed();
 	}
 	
 	public void autonomousePeriodic() {
@@ -90,16 +90,16 @@ public class Demoman extends IterativeRobot {
 	}
 	
 	public void teleopPeriodic() {
-		Watchdog.getInstance.feed();
+		Watchdog.getInstance().feed();
 		
 		// Respond to drivers
 		/** !D It seems to me that from our testing, the drivers may not push the joystick
 			forward all the way when they really want full speed.  Should we put some code
 			in to artifically alter the input speeds?
 			@eric **/
-		double goLeft = Hardware.leftJoytick.getY();
+		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
-		driveTo(goLeft, goRight);
+		rampTo(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
 		kickBall();
@@ -126,7 +126,7 @@ public class Demoman extends IterativeRobot {
 		}
 		lastRightSpeed += rightDelta;
 	
-		Hardware.RobotDrive.setLeftRightMotorSpeeds(lastLeftSpeed, lastRigthSpeed);
+		Hardware.robotDrive.setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
 	}
 	
 	// Kick the ball if the button is pressed
@@ -158,6 +158,7 @@ public class Demoman extends IterativeRobot {
 			// Reset the timer, or else it'll think it needs to retract the arm
 			kickerTimer.stop();
 			kickerTimer.reset();
+            kickerTimerIsStale = false;
 		}
 		
 		// Is button two pressed?
@@ -166,15 +167,15 @@ public class Demoman extends IterativeRobot {
 			Hardware.solenoids[3].set(true);
 		}
 		
-		if (kickerTimer.get() >= 1500000) {
+		if (kickerTimer.get() >= 1.5) {
 			Hardware.solenoids[0].set(true);
 			Hardware.solenoids[1].set(true);
 			Hardware.solenoids[2].set(false);
 			Hardware.solenoids[3].set(false);
 		}
 		
-		// DIAGNOSTIC
-		System.out.println(kickerLatchSwitch.get());
+		// DIAGNOSTIC - use a solenoid because println eats all the ram
+		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
 		
 	}
 

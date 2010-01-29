@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.*;
 *						(The Chargin Scottsman)
 *		Filename:	Hardware.java
 *		Authors:	@eric
-*					@ben
+*                               @ben
 *					
 *		This is where all hardware declarations occur.  If you need to check
 *		slots, channels, etc., it's in here.  Separation of locic ;).
@@ -31,16 +31,13 @@ public class Hardware {
 	public static Joystick leftJoystick = new Joystick(2);
 	
 	// Solenoids
-	public static Solenoid[] solenoids = new Solenoid[8];
-		solenoids[0] = new Solenoid(1);
-		solenoids[1] = new Solenoid(2);
-		solenoids[2] = new Solenoid(3);
-		solenoids[3] = new Solenoid(4);
-		solenoids[4] = new Solenoid(5);
-		solenoids[5] = new Solenoid(6);
-		solenoids[6] = new Solenoid(7);
-		solenoids[7] = new Solenoid(8);
-	
+	// Declared anonymously because we couldn't get the syntax to work otherwise D:
+    public static Solenoid[] solenoids = {
+        new Solenoid(1), new Solenoid(2), new Solenoid(3),
+        new Solenoid(4), new Solenoid(5), new Solenoid(6),
+        new Solenoid(7), new Solenoid(8)
+			};
+
 	// Digital Inputs:
 		// Has the kicker returned to its home position, with latch closed?
 		public static DigitalInput kickerLatchSwitch = new DigitalInput(4, 1);

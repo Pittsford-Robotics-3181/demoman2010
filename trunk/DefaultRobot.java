@@ -145,7 +145,7 @@ public class DefaultRobot extends IterativeRobot {
 		}
 
 		// Iterate over all the solenoids on the robot, constructing each in turn
-		int solenoidNum = 1;						// start counting solenoids at solenoid 1
+		int solenoidNum = 1;		// start counting solenoids at solenoid 1
 		for (solenoidNum = 0; solenoidNum < NUM_SOLENOIDS; solenoidNum++) {
 			m_solenoids[solenoidNum] = new Solenoid(solenoidNum + 1);
 		}
