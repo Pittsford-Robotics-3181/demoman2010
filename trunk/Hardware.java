@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.*;
 *                               @ben
 *					
 *		This is where all hardware declarations occur.  If you need to check
-*		slots, channels, etc., it's in here.  Separation of locic ;).
+*		slots, channels, etc., it's in here.  Separation of logic ;).
 *
 *		Currently there aren't any functions, just a lot of static primitives
 *		and references.
