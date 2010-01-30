@@ -1,0 +1,19 @@
+How to add an autonomous function:
+	Name the class "Autonomous{Name}"
+	Have a static function "run" with no parameters
+	Add it to the switch in AutonomousPeriodic in Demoman.java
+	!! Don't make anything run for too long.  Remember, it's called once per loop.
+
+How to do a function for a set time:
+	Within the init:
+		Timer myTimer = new Timer();
+		myTimer.start();
+	
+	Within the loop:
+		if (myTimer.get() < X) {
+			// Do stuff between start and time X
+		} else if (myTimer.get() < Y) {
+			// Do stuff between times X and Y
+		} else if (myTimer.get() < Z) {
+			// Do stuff between times Y and Z
+		}
