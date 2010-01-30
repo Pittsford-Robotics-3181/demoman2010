@@ -1,6 +1,14 @@
-/* Authors:
-	@ben
-	@ericisapatheticfailure
+/**
+*	Team 3181 Robotics
+*		Project:	Breakaway
+*		Codename:	Demoman
+*						(The Chargin Scottsman)
+*		Filename:	AutonomousZone1.java
+*		Authors:	@ben
+*					@eric
+*					
+*		This file contains the autonomous program "Zone1"
+*		
 */
 public class AutonomousZone1 {
 	static void function run(){

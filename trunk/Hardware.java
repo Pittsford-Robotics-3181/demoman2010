@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.*;
 *						(The Chargin Scottsman)
 *		Filename:	Hardware.java
 *		Authors:	@eric
-*                               @ben
 *					
 *		This is where all hardware declarations occur.  If you need to check
 *		slots, channels, etc., it's in here.  Separation of logic ;).
@@ -24,7 +23,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class Hardware {
 	// Robot drive system
-	public static RobotDrive robotDrive = new RobotDrive(1, 3, 2, 4);
+	public static RobotDrive robotDrive = new DriveSystem(1, 3, 2, 4);
 	
 	// Joysticks
 	public static Joystick rightJoystick = new Joystick(1);
@@ -39,7 +38,14 @@ public class Hardware {
 			};
 
 	// Digital Inputs:
+		// Autonomous switches
+		public static DigitalInput[] autonomousSwitches = {
+		// 4, 2 is the leftmost switch
+		new DigitalInput(4, 2), new DigitalInput(4, 3), new DigitalInput(4, 4)
+			};
+	
 		// Has the kicker returned to its home position, with latch closed?
+		// TRUE means CLOSED
 		public static DigitalInput kickerLatchSwitch = new DigitalInput(4, 1);
 	
 }

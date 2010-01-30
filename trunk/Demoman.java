@@ -8,11 +8,14 @@ import edu.wpi.first.wpilibj.*;
 *						(The Chargin Scottsman)
 *		Filename:	Demoman.java
 *		Authors:	@eric
-*				@ben
 *					
 *		This file is the main robot controller.  It runs all the loops, and
 *		generally makes things happen.
 *		
+*		--------------------------------------------------------------------
+*		--------------------------------------------------------------------
+*		Mode reference:
+*
 *		Disabled Mode:
 *			-> Disabled by the system (e.g., eStop button)
 *			-> Does nothing
@@ -35,6 +38,8 @@ import edu.wpi.first.wpilibj.*;
 *			-> Responds to tank drive: Left joystick controls left throttle, right
 *				joystick controls right
 *			-> Checks to see if the operator wants to kick
+*		--------------------------------------------------------------------
+*		--------------------------------------------------------------------
 *
 *		!! TODO:
 *			-> Fix rampTo()
@@ -48,10 +53,12 @@ import edu.wpi.first.wpilibj.*;
 public class Demoman extends IterativeRobot {
 
 	/*** Instance Variables ***/
-	// Maintain ramping state:
-	double lastLeftSpeed = 0.0;
-	double lastRightSpeed = 0.0;
-	double rampingConstant = 0.01;
+	
+	// Maintain autonomous state
+	int autonomousMode = 0;
+	
+	// Autonomous timer
+	static Timer autonomousTimer = new Timer();
 	
 	// Kicking data
 	Timer kickerTimer = new Timer();
@@ -69,8 +76,21 @@ public class Demoman extends IterativeRobot {
 	}
 	public void autonomousInit() {
 		System.out.println("Robot has been put into autonomous mode");
+		// Reset speeds, so you don't confuse the ramping
 		lastLeftSpeed = 0.0;
 		lastRightSpeed = 0.0;
+		Hardware.robotDrive.stop();
+		
+		// Find out which autnomous mode we want
+		// Leftmost worth 4
+		autonomousMode += Hardware.autonomousSwitches[0].get() ? 4 : 0;
+		// Middle worth 2
+		autonomousMode += Hardware.autonomousSwitches[1].get() ? 2 : 0;
+		// Rightmost worth 1
+		autonomousMode += Hardware.autonomousSwitches[2].get() ? 1 : 0;
+		
+		// Start the autonomous timer, referenced by all autonomous modes
+		this.autonomousTimer.start();
 	}
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
@@ -87,6 +107,14 @@ public class Demoman extends IterativeRobot {
 	
 	public void autonomousePeriodic() {
 		Watchdog.getInstance().feed();
+		switch (autonomousMode) {
+			case 0:
+				AutonomousDoNothing.run();
+				break;
+			case 1:
+				AutonomousZone1.run();
+				break;
+		}
 	}
 	
 	public void teleopPeriodic() {
@@ -99,83 +127,12 @@ public class Demoman extends IterativeRobot {
 			@eric **/
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
-		rampTo(goLeft, goRight);
+		Hardware.robotDrive(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
-		kickBall();
-		
-	}
-	
-	
-	/*** Drive Functions ***/
-	
-	// Ramp to a given speed
-	public void rampTo(double leftTarget, double rightTarget) {
-	
-		// Left
-		double leftDelta = leftTarget - lastLeftSpeed;
-		if (Math.abs(leftDelta) > rampingConstant) {
-			leftDelta = ((leftDelta < 0) ? -1 : 1) * rampingConstant;
+		if (Hardware.rightJoystick.getTrigger()) {
+			kickBall();
 		}
-		lastLeftSpeed += leftDelta;
-		
-		// Right
-		double rightDelta = rightTarget - lastRightSpeed;
-		if (Math.abs(rightDelta) > rampingConstant) {
-			rightDelta = ((rightDelta < 0) ? -1 : 1) * rampingConstant;
-		}
-		lastRightSpeed += rightDelta;
-	
-		Hardware.robotDrive.setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
-	}
-	
-	// Kick the ball if the button is pressed
-		/** !D Instead of using checking to see if the driver wants to kick here,
-			why not check the button in teleopPeriodic, and ONLY call this function
-			if we're SURE we want to kick.  That way, autonomousPeriodic can implement
-			its own kicking conditionals and utilize this function.
-			@eric **/
-	public void kickBall() {
-		/*	Joystick Trigger:	Fire S5
-		*	Joystick Button 2:	Fire S3, S4
-		*	S1, S2 fire 1.5 seconds after S5
-		*/
-		
-		// Fire S5
-		Hardware.solenoids[4].set(Hardware.rightJoystick.getTrigger());
-		
-		// Check to see if this is the first loop the latch has been open for
-		if (!Hardware.kickerLatchSwitch.get() && !kickerTimerIsStale) {
-			kickerTimer.reset();
-			kickerTimer.start();
-			kickerTimerIsStale = true;
-		}
-		
-		// If the latch is closed, shut off S1 and S2, because they've done their job
-		if (Hardware.kickerLatchSwitch.get()) {
-			Hardware.solenoids[0].set(false);
-			Hardware.solenoids[1].set(false);
-			// Reset the timer, or else it'll think it needs to retract the arm
-			kickerTimer.stop();
-			kickerTimer.reset();
-            kickerTimerIsStale = false;
-		}
-		
-		// Is button two pressed?
-		if (Hardware.rightJoystick.getRawButton(2)) {
-			Hardware.solenoids[2].set(true);
-			Hardware.solenoids[3].set(true);
-		}
-		
-		if (kickerTimer.get() >= 1.5) {
-			Hardware.solenoids[0].set(true);
-			Hardware.solenoids[1].set(true);
-			Hardware.solenoids[2].set(false);
-			Hardware.solenoids[3].set(false);
-		}
-		
-		// DIAGNOSTIC - use a solenoid because println eats all the ram
-		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
 		
 	}
 
