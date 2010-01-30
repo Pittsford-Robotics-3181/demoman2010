@@ -1,3 +1,6 @@
+package demoman;
+import edu.wpi.first.wpilibj.*;
+
 /**
 *	Team 3181 Robotics
 *		Project:	Breakaway
@@ -19,13 +22,15 @@
 *			-> Stop all motors
 *			-> !! Update this when you add motors
 *
+*              void resetDefaults()
+*                      -> !!
 *
 *		--------------------------------------------------------------------
 *		--------------------------------------------------------------------
 *
 */
 
-class DriveSystem extends RobotDrive {
+public class DriveSystem extends RobotDrive {
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
@@ -58,6 +63,13 @@ class DriveSystem extends RobotDrive {
 	// Stop EVERYTHING.
 	public void stop() {
 		setLeftRightMotorSpeeds(0.0, 0.0);
+                resetDefaults();
 	}
+
+        public void resetDefaults() {
+          // It might get confused when we restart
+          lastLeftSpeed = 0.0;
+          lastRightSpeed = 0.0;
+        }
 
 }

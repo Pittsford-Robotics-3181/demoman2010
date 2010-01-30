@@ -32,25 +32,27 @@
 *		
 */
 
-class Diagnostics {
+public class Diagnostics {
 	static final boolean DIAGNOSTICS_ENABLED = true;
 	static final String TEAM_PREFIX = "[3181] ";
 	static String sectionPrefix = "";
 	
 	static void sendMessage(String message) {
-		System.out.println(String.format("%s%s %s" % TEAM_PREFIX, sectionPrefix, message));
+                System.out.print((TEAM_PREFIX));
+                System.out.print(sectionPrefix);
+                System.out.println(message);
 	}
 	
 	static void setSectionPrefix(String pre) {
-		this.sectionPrefix = pre;
+		sectionPrefix = pre;
 	}
 	
 	static String getTeamPrefix() {
-		return this.TEAM_PREFIX;
+		return TEAM_PREFIX;
 	}
 	
 	static String getSectionPrefix() {
-		return this.sectionPrefix;
+		return sectionPrefix;
 	}
 
 }

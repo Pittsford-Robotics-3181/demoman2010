@@ -1,3 +1,5 @@
+package demoman;
+
 /**
 *	Team 3181 Robotics
 *		Project:	Breakaway
@@ -11,8 +13,8 @@
 *		
 */
 public class AutonomousZone1 {
-	static void function run(){
-		int timerValue=Demoman.autonomousTimer.get();
+	static void run(){
+		double timerValue=Demoman.autonomousTimer.get();
 		if(timerValue<.5){
 		
 		}else if(timerValue<1.5){
