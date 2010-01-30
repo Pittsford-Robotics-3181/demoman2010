@@ -1,0 +1,16 @@
+#summary Ideas on new switch/auto mapping.
+#labels Featured,Phase-Design,Whiteboard
+
+A new idea: we should have some location flexability, so that others in the alliance can plan better strats.  We don't need to create the second (or third) position now or soon, but if we have time.
+
+|| *Switch Mapping* || *Area* || *Position* ||
+|| 000 || --- || --- ||
+|| 001 || 1 || 1 ||
+|| 010 || 1 || 2 ||
+|| 011 || 2 || 1 ||
+|| 100 || 2 || 2 ||
+|| 101 || 3 || 1 ||
+|| 110 || 3 || 2 ||
+|| 111 || Floating || 3 ||
+
+We could place the floating 111 mapping within an area to create a third position.
