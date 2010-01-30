@@ -1,3 +1,7 @@
+package demoman;
+import edu.wpi.first.wpilibj.*;
+
+
 /**
 *	Team 3181 Robotics
 *		Project:	Breakaway
@@ -24,21 +28,22 @@
 
 public class Kicking {
 
-	public void kickBall() {
+        // Kicking data
+	static Timer kickerTimer = new Timer();
+	static boolean kickerTimerIsStale = false; // Used to only reset the timer if it's hit 1.5 seconds
+	
+
+	public static void kickBall() {
 		/*	When called: Fire S3, S4
 		*	S1, S2 fire 1.5 seconds afterwards
 		*	S3, S4 turn off 
 		*/
-		
-		Diagnostics.setSection("[Kicking]");
-		Diagnostics.sendMessage("kickBall has been called");
-		
+
 		// Shoot
 		if (Hardware.kickerLatchSwitch.get()) {
 			Hardware.solenoids[4].set(true);
-			Diagnostics.sendMessage("Kicked!");
 		} else {
-			Diagnostics.sendMessage("Tried to kick, but the latch wasn't closed");
+                    
 		}
 		
 		// Check to see if this is the first loop the latch has been open for
@@ -75,7 +80,6 @@ public class Kicking {
 		}
 		
 		// DIAGNOSTIC - use a solenoid because println eats all the ram
-		Diagnostics.reset();
 		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
 	}
 

@@ -60,10 +60,6 @@ public class Demoman extends IterativeRobot {
 	// Autonomous timer
 	static Timer autonomousTimer = new Timer();
 	
-	// Kicking data
-	Timer kickerTimer = new Timer();
-	boolean kickerTimerIsStale = false; // Used to only reset the timer if it's hit 1.5 seconds
-	
 	
 	/*** Initialization Routines ***/
 		// We have to have ALL of these here.
@@ -77,8 +73,6 @@ public class Demoman extends IterativeRobot {
 	public void autonomousInit() {
 		System.out.println("Robot has been put into autonomous mode");
 		// Reset speeds, so you don't confuse the ramping
-		lastLeftSpeed = 0.0;
-		lastRightSpeed = 0.0;
 		Hardware.robotDrive.stop();
 		
 		// Find out which autnomous mode we want
@@ -90,12 +84,11 @@ public class Demoman extends IterativeRobot {
 		autonomousMode += Hardware.autonomousSwitches[2].get() ? 1 : 0;
 		
 		// Start the autonomous timer, referenced by all autonomous modes
-		this.autonomousTimer.start();
+		autonomousTimer.start();
 	}
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
-		lastLeftSpeed = 0.0;
-		lastRightSpeed = 0.0;
+                Hardware.robotDrive.stop();
 	}
 	
 	
@@ -127,11 +120,11 @@ public class Demoman extends IterativeRobot {
 			@eric **/
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
-		Hardware.robotDrive(goLeft, goRight);
+		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
 		if (Hardware.rightJoystick.getTrigger()) {
-			kickBall();
+			Kicking.kickBall();
 		}
 		
 	}

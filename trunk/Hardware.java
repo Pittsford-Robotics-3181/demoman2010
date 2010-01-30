@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class Hardware {
 	// Robot drive system
-	public static RobotDrive robotDrive = new DriveSystem(1, 3, 2, 4);
+	public static DriveSystem robotDrive = new DriveSystem(1, 3, 2, 4);
 	
 	// Joysticks
 	public static Joystick rightJoystick = new Joystick(1);

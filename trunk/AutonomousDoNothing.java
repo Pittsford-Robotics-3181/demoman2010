@@ -1,3 +1,5 @@
+package demoman;
+
 /**
 *	Team 3181 Robotics
 *		Project:	Breakaway
@@ -11,7 +13,7 @@
 */
 
 public class AutonomousDoNothing {
-	static function run() {
+	static void run() {
 		// Just in case, stop all moving parts
 		Hardware.robotDrive.stop();
 	}
