@@ -1,32 +1,18 @@
 package demoman;
 import edu.wpi.first.wpilibj.*;
 
-/**
+/*
 *	Team 3181 Robotics
 *		Project:	Breakaway
 *		Codename:	Demoman
 *						(The Chargin Scottsman)
 *		Filename:	DriveSystem.java
-*		Authors:	@eric
-*					
-*		This file defines the drive system.  It includes functions for driving.
-*
-*		--------------------------------------------------------------------
-*		--------------------------------------------------------------------
-*		Function reference:
-*
-*		void driveAtSpeed(double leftTarget, double rightTarget)
-*			-> Ramp the motors to those respective values
-*
-*		void stop()
-*			-> Stop all motors
-*			-> !! Update this when you add motors
-*
-*              void resetDefaults()
-*                      -> !!
-*
-*		--------------------------------------------------------------------
-*		--------------------------------------------------------------------
+*/
+/**		
+*		This class defines the drive system.  Functions for driving and the like.
+*		
+*		@author eric
+*		@author ben                                                      
 *
 */
 
@@ -37,6 +23,10 @@ public class DriveSystem extends RobotDrive {
 	double lastRightSpeed = 0.0;
 	double RAMPING_CONSTANT = 0.01;
 	
+	/**
+	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
+	*
+	*/
 	DriveSystem (int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
