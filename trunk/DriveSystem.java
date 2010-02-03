@@ -31,14 +31,19 @@ import edu.wpi.first.wpilibj.*;
 */
 
 public class DriveSystem extends RobotDrive {
+
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
 	double RAMPING_CONSTANT = 0.01;
-
+	
 	DriveSystem (int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
+	
+/*
+//  --- LINEAR RAMPING ---
+
 	
 	// Ramp to a given speed
 	public void driveAtSpeed(double leftTarget, double rightTarget) {
@@ -59,6 +64,16 @@ public class DriveSystem extends RobotDrive {
 	
 		setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
 	}
+//	--- END LINEAR RAMPING ---
+*/
+	
+	// --- EXPONENTIAL RAMPING
+	// Exponential ramping
+	// Approximate the equation ds/dt = ln 2 * 2^t
+	// @ben
+	double RAMPING_CONSTANT = 0.6931;
+	
+	
 	
 	// Stop EVERYTHING.
 	public void stop() {
