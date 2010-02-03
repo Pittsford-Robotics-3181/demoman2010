@@ -1,23 +1,21 @@
 package demoman;
 import edu.wpi.first.wpilibj.*;
 
-/**
+/*
 *	Team 3181 Robotics
 *		Project:	Breakaway
 *		Codename:	Demoman
 *						(The Chargin Scottsman)
 *		Filename:	Hardware.java
-*		Authors:	@eric
-*					
+*/
+/**		
 *		This is where all hardware declarations occur.  If you need to check
 *		slots, channels, etc., it's in here.  Separation of logic ;).
-*
+*		<p>
 *		Currently there aren't any functions, just a lot of static primitives
 *		and references.
-*
-*		!! TODO:
-*			-> Rework imports to only pull what we need
-*			-> Make sure the solenoids are mapped properly
+*	
+*		@author eric                                                  
 *
 */
 

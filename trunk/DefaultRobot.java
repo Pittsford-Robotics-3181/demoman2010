@@ -1,4 +1,4 @@
-/** TEAM 3181 NOTE:
+/* TEAM 3181 NOTE:
 	This is what we started with and have been basing our code off of.
 		(Also take a look at Kilroy, team 339.)
 	So it's still in the repository so we don't lose it.

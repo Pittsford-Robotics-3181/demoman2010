@@ -1,28 +1,17 @@
 package demoman;
 import edu.wpi.first.wpilibj.*;
 
-
-/**
+/*
 *	Team 3181 Robotics
 *		Project:	Breakaway
 *		Codename:	Demoman
 *						(The Chargin Scottsman)
 *		Filename:	Kicking.java
-*		Authors:	@eric
-*					
-*		This file defines the kicking system.  It includes functions for kicking. 
-*
-*		--------------------------------------------------------------------
-*		--------------------------------------------------------------------
-*		Function reference:
-*
-*		static void kickBall()
-*			-> Kicks the ball assuming the kicker is retracted
-*			-> Retracts the kicker
-*			-> Only call if you're sure you want to kick
-*
-*		--------------------------------------------------------------------
-*		--------------------------------------------------------------------
+*/
+/**		
+*	All the kicking functions are housed here.
+*	
+*	@author eric                                                 
 *
 */
 
@@ -32,7 +21,18 @@ public class Kicking {
 	static Timer kickerTimer = new Timer();
 	static boolean kickerTimerIsStale = false; // Used to only reset the timer if it's hit 1.5 seconds
 	
+	/**
+	*	Kick the ball.
+	*	
+	
+   / /_  _________  / /_____  ____     / /_  _________  / /_____  ____ 
+  / __ \/ ___/ __ \/ //_/ _ \/ __ \   / __ \/ ___/ __ \/ //_/ _ \/ __ \
+ / /_/ / /  / /_/ / ,< /  __/ / / /  / /_/ / /  / /_/ / ,< /  __/ / / /
+/_.___/_/   \____/_/|_|\___/_/ /_/  /_.___/_/   \____/_/|_|\___/_/ /_/ 
 
+	*
+	*
+	*/
 	public static void kickBall() {
 		/*	When called: Fire S3, S4
 		*	S1, S2 fire 1.5 seconds afterwards
