@@ -2,6 +2,25 @@
 	This is what we started with and have been basing our code off of.
 		(Also take a look at Kilroy, team 339.)
 	So it's still in the repository so we don't lose it.
+	
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	We aren't using this file on our robot.
+	
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	This is only here for legacy purposes.
+	
+	Got it?  Good.
+	
 */
 
 /*----------------------------------------------------------------------------*/
