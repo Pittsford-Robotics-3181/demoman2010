@@ -42,7 +42,7 @@ public class Kicking {
 				(new HelloThread()).start();
 			} catch (InterruptedException ex) {
 				// This shouldn't ever happen
-				system.out.println("Kicking thread has been interrupted");
+				System.out.println("Kicking thread has been interrupted");
 			}
 		} else {
             // Can't kick because the kicker isn't there!
