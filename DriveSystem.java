@@ -21,7 +21,7 @@ public class DriveSystem extends RobotDrive {
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
-	double RAMPING_CONSTANT = 0.01;
+	//double RAMPING_CONSTANT = 0.01; // For linear ramping
 	
 	/**
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
@@ -32,9 +32,8 @@ public class DriveSystem extends RobotDrive {
 	}
 	
 /*
-//  --- LINEAR RAMPING ---
+	//  --- LINEAR RAMPING ---
 
-	
 	// Ramp to a given speed
 	public void driveAtSpeed(double leftTarget, double rightTarget) {
 	
@@ -54,27 +53,49 @@ public class DriveSystem extends RobotDrive {
 	
 		setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
 	}
-//	--- END LINEAR RAMPING ---
+	//	--- END LINEAR RAMPING ---
 */
 	
 	// --- EXPONENTIAL RAMPING
 	// Exponential ramping
+	// Ramp to a given speed
+	// Ignore the next line
 	// Approximate the equation ds/dt = ln 2 * 2^t
-	// @ben
-	double RAMPING_CONSTANT = 0.6931;
+	// @benisawesome
 	
+	public void driveAtSpeed(double leftTarget, double rightTarget)	{
 	
+		double leftDelta = leftTarget - lastLeftSpeed;
+		if (isBigChange(lastLeftSpeed, leftDelta)) {
+			leftDelta = ((leftDelta < 0) ? -1 : 1 ) * Math.exp(currentSpeed)
+		}
+		lastLeftSpeed += leftDelta;
+		
+		double rightDelta = rightTarget - lastRightSpeed;
+		if (isBigChange(lastRightSpeed, rightDelta)) {
+			rightDelta = ((rightDelta < 0) ? -1 : 1 ) * Math.exp(currentSpeed)
+		}
+		lastRightSpeed += rightDelta;
+		
+	}
+	
+	// Returns true iff the proposed change would be too much for the gearbox
+	public boolean isBigChange(double currentSpeed, double change) {
+		return Math.abs(change)>Math.exp(currentSpeed);
+	}
+	
+	// --- END EXPONENTIAL RAMPING ---
 	
 	// Stop EVERYTHING.
 	public void stop() {
 		setLeftRightMotorSpeeds(0.0, 0.0);
-                resetDefaults();
+		resetDefaults();
 	}
 
-        public void resetDefaults() {
-          // It might get confused when we restart
-          lastLeftSpeed = 0.0;
-          lastRightSpeed = 0.0;
-        }
+    public void resetDefaults() {
+    // It might get confused when we restart
+		lastLeftSpeed = 0.0;
+		lastRightSpeed = 0.0;
+    }
 
 }
