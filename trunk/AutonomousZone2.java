@@ -77,5 +77,5 @@ public class AutonomousZone2 {
 			Hardware.robotDrive.stop();
 			Kicking.kickBall();
 		}
-		else{}
+		else{}}
 }
