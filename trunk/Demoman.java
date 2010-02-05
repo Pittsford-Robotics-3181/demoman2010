@@ -111,6 +111,9 @@ public class Demoman extends IterativeRobot {
 			case 1:
 				AutonomousZone1.run();
 				break;
+			case 2:
+				AutonomousZone2.run();
+				break;
 		}
 	}
 	
