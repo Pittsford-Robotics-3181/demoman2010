@@ -21,8 +21,10 @@ public class DriveSystem extends RobotDrive {
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
-	//double RAMPING_CONSTANT = 0.01; // For linear ramping
-	
+	double RAMPING_CONSTANT_1 = 0.01;
+	double RAMPING_CONSTANT_2 = 0.4;
+	double MAX_INCREASE = 0.1;
+
 	/**
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
 	*
@@ -30,7 +32,34 @@ public class DriveSystem extends RobotDrive {
 	DriveSystem (int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
-	
+
+	// --- EXPONENTIAL RAMPING
+	// Exponential ramping
+	// Ramp to a given speed
+	// Ignore the next line
+	// Approximate the equation ds/dt = ln 2 * 2^t
+	// @benhazawesome
+
+	public void driveAtSpeed(double leftTarget, double rightTarget)	{
+
+		double leftDelta = leftTarget - lastLeftSpeed;
+		if (Math.abs(leftDelta)>MAX_INCREASE) {
+			Timer leftTimer = new Timer();
+			leftDelta = ((leftDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * Math.pow(2, RAMPING_CONSTANT_2 * leftTimer.get())
+		}
+		lastLeftSpeed += leftDelta;
+		
+		double rightDelta = rightTarget - lastRightSpeed;
+		if (Math.abs(rightDelta)>MAX_INCREASE) {
+			Timer rightTimer = new Timer();
+			rightDelta = ((rightDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * Math.pow(2, RAMPING_CONSTANT_2 * rightTimer.get())
+		}
+		lastRightSpeed += rightDelta;
+
+	}
+
+	// --- END EXPONENTIAL RAMPING ---
+
 /*
 	//  --- LINEAR RAMPING ---
 
@@ -55,36 +84,6 @@ public class DriveSystem extends RobotDrive {
 	}
 	//	--- END LINEAR RAMPING ---
 */
-	
-	// --- EXPONENTIAL RAMPING
-	// Exponential ramping
-	// Ramp to a given speed
-	// Ignore the next line
-	// Approximate the equation ds/dt = ln 2 * 2^t
-	// @benisawesome
-	
-	public void driveAtSpeed(double leftTarget, double rightTarget)	{
-	
-		double leftDelta = leftTarget - lastLeftSpeed;
-		if (isBigChange(lastLeftSpeed, leftDelta)) {
-			leftDelta = ((leftDelta < 0) ? -1 : 1 ) * Math.exp(currentSpeed)
-		}
-		lastLeftSpeed += leftDelta;
-		
-		double rightDelta = rightTarget - lastRightSpeed;
-		if (isBigChange(lastRightSpeed, rightDelta)) {
-			rightDelta = ((rightDelta < 0) ? -1 : 1 ) * Math.exp(currentSpeed)
-		}
-		lastRightSpeed += rightDelta;
-		
-	}
-	
-	// Returns true iff the proposed change would be too much for the gearbox
-	public boolean isBigChange(double currentSpeed, double change) {
-		return Math.abs(change)>Math.exp(currentSpeed);
-	}
-	
-	// --- END EXPONENTIAL RAMPING ---
 	
 	// Stop EVERYTHING.
 	public void stop() {
