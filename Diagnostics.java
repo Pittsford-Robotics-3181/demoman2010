@@ -60,9 +60,9 @@ public class Diagnostics {
 	static String sectionPrefix = "";
 	
 	static void sendMessage(String message) {
-			System.out.print((TEAM_PREFIX));
-			System.out.print(sectionPrefix);
-			System.out.println(message);
+		System.out.print((TEAM_PREFIX));
+		System.out.print(sectionPrefix);
+		System.out.println(message);
 	}
 	
 	static void setSectionPrefix(String pre) {
