@@ -1,6 +1,6 @@
 package demoman;
+import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.*;
-
 /*
 *	Team 3181 Robotics
 *		Project:	Breakaway
@@ -21,9 +21,12 @@ public class DriveSystem extends RobotDrive {
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
-	double RAMPING_CONSTANT_1 = 0.01;
-	double RAMPING_CONSTANT_2 = 0.4;
+	double RAMPING_CONSTANT_1 = 0.0001; //change this for different speeds
+	double RAMPING_CONSTANT_2 = 0.004; //not very useful
 	double MAX_INCREASE = 0.1;
+        Timer leftTimer = new Timer();
+        Timer rightTimer = new Timer();
+        int counter = 0;
 
 	/**
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
@@ -44,18 +47,25 @@ public class DriveSystem extends RobotDrive {
 
 		double leftDelta = leftTarget - lastLeftSpeed;
 		if (Math.abs(leftDelta)>MAX_INCREASE) {
-			Timer leftTimer = new Timer();
-			leftDelta = ((leftDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * Math.pow(2, RAMPING_CONSTANT_2 * leftTimer.get())
-		}
+			leftDelta = ((leftDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2.0, RAMPING_CONSTANT_2 * leftTimer.get());
+		}else{
+                    leftTimer.reset();
+                }
 		lastLeftSpeed += leftDelta;
+                lastLeftSpeed = Math.min(lastLeftSpeed,1.0);
 		
 		double rightDelta = rightTarget - lastRightSpeed;
 		if (Math.abs(rightDelta)>MAX_INCREASE) {
-			Timer rightTimer = new Timer();
-			rightDelta = ((rightDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * Math.pow(2, RAMPING_CONSTANT_2 * rightTimer.get())
-		}
+			rightDelta = ((rightDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2, RAMPING_CONSTANT_2 * rightTimer.get());
+		}else{
+                    rightTimer.reset();
+                }
 		lastRightSpeed += rightDelta;
+                lastRightSpeed = Math.min(lastRightSpeed,1.0);
 
+                if(counter++%500==0)
+                    System.out.println(lastLeftSpeed+","+lastRightSpeed);
+                setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
 	}
 
 	// --- END EXPONENTIAL RAMPING ---
