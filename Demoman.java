@@ -1,5 +1,8 @@
 package demoman;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 
 /*
 *	Team 3181 Robotics
@@ -14,7 +17,7 @@ import edu.wpi.first.wpilibj.*;
 *		means "operator controlled".
 *		
 *		@author eric
-*		@author ben                                                      
+*		@author ben													  
 *
 */
 
@@ -27,6 +30,9 @@ public class Demoman extends IterativeRobot {
 	
 	// Autonomous timer
 	static Timer autonomousTimer = new Timer();
+
+	// Camera
+	AxisCamera camera;
 	
 	
 	/*--- Initialization Routines ---*/
@@ -36,7 +42,11 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void robotInit() {
-		System.out.println("Robot has been initialized");
+		System.out.println("Robot has been initialized!");
+		camera = AxisCamera.getInstance();
+		camera.writeCompression(0);
+		camera.writeBrightness(10);
+		camera.writeResolution(AxisCamera.ResolutionT.k160x120);
 	}
 	
 	/**
@@ -79,7 +89,7 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
-        Hardware.robotDrive.stop();
+		Hardware.robotDrive.stop();
 	}
 	
 	
@@ -138,7 +148,5 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.rightJoystick.getTrigger()) {
 			Kicking.kickBall();
 		}
-		
 	}
-
 }
