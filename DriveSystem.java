@@ -63,7 +63,7 @@ public class DriveSystem extends RobotDrive {
 			rightTimer.reset();
 		}
 		lastRightSpeed += rightDelta;
-		lastRightSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
+		lastRightSpeed = Math.min(Math.max(lastRightSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
 
 		setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
 		
@@ -71,7 +71,7 @@ public class DriveSystem extends RobotDrive {
 
 	// --- END EXPONENTIAL RAMPING ---
 
-/*
+	/*
 	//  --- LINEAR RAMPING ---
 
 	// Ramp to a given speed
@@ -94,7 +94,7 @@ public class DriveSystem extends RobotDrive {
 		setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
 	}
 	//	--- END LINEAR RAMPING ---
-*/
+	*/
 	
 	// Stop EVERYTHING.
 	public void stop() {
@@ -102,8 +102,8 @@ public class DriveSystem extends RobotDrive {
 		resetDefaults();
 	}
 
-	public void resetDefaults() {
 	// It might get confused when we restart
+	public void resetDefaults() {
 		lastLeftSpeed = 0.0;
 		lastRightSpeed = 0.0;
 	}
