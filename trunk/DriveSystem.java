@@ -39,8 +39,10 @@ public class DriveSystem extends RobotDrive {
 	// --- EXPONENTIAL RAMPING
 	// Exponential ramping
 	// Ramp to a given speed
+	// Eric thinks he can do calculus, but he really can't
 	// Ignore the next line
 	// Approximate the equation ds/dt = ln 2 * 2^t
+	// Increase/decrease speed by a constant times 2^t
 	// @benhazawesome
 
 	public void driveAtSpeed(double leftTarget, double rightTarget)	{
@@ -49,23 +51,22 @@ public class DriveSystem extends RobotDrive {
 		if (Math.abs(leftDelta)>MAX_INCREASE) {
 			leftDelta = ((leftDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2.0, RAMPING_CONSTANT_2 * leftTimer.get());
 		}else{
-                    leftTimer.reset();
-                }
+            leftTimer.reset();
+		}
 		lastLeftSpeed += leftDelta;
-                lastLeftSpeed = Math.min(lastLeftSpeed,1.0);
+        lastLeftSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
 		
 		double rightDelta = rightTarget - lastRightSpeed;
 		if (Math.abs(rightDelta)>MAX_INCREASE) {
 			rightDelta = ((rightDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2, RAMPING_CONSTANT_2 * rightTimer.get());
 		}else{
-                    rightTimer.reset();
-                }
+            rightTimer.reset();
+		}
 		lastRightSpeed += rightDelta;
-                lastRightSpeed = Math.min(lastRightSpeed,1.0);
+        lastRightSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
 
-                if(counter++%500==0)
-                    System.out.println(lastLeftSpeed+","+lastRightSpeed);
-                setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
+        setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
+		
 	}
 
 	// --- END EXPONENTIAL RAMPING ---
