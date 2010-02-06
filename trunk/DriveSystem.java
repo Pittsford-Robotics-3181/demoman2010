@@ -24,9 +24,9 @@ public class DriveSystem extends RobotDrive {
 	double RAMPING_CONSTANT_1 = 0.0001; //change this for different speeds
 	double RAMPING_CONSTANT_2 = 0.004; //not very useful
 	double MAX_INCREASE = 0.1;
-		Timer leftTimer = new Timer();
-		Timer rightTimer = new Timer();
-		int counter = 0;
+	Timer leftTimer = new Timer();
+	Timer rightTimer = new Timer();
+	int counter = 0;
 
 	/**
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
