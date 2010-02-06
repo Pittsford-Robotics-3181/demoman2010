@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.*;
 *		This class defines the drive system.  Functions for driving and the like.
 *		
 *		@author eric
-*		@author ben                                                      
+*		@author ben													  
 *
 */
 
@@ -24,9 +24,9 @@ public class DriveSystem extends RobotDrive {
 	double RAMPING_CONSTANT_1 = 0.0001; //change this for different speeds
 	double RAMPING_CONSTANT_2 = 0.004; //not very useful
 	double MAX_INCREASE = 0.1;
-        Timer leftTimer = new Timer();
-        Timer rightTimer = new Timer();
-        int counter = 0;
+		Timer leftTimer = new Timer();
+		Timer rightTimer = new Timer();
+		int counter = 0;
 
 	/**
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
@@ -51,21 +51,21 @@ public class DriveSystem extends RobotDrive {
 		if (Math.abs(leftDelta)>MAX_INCREASE) {
 			leftDelta = ((leftDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2.0, RAMPING_CONSTANT_2 * leftTimer.get());
 		}else{
-            leftTimer.reset();
+			leftTimer.reset();
 		}
 		lastLeftSpeed += leftDelta;
-        lastLeftSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
+		lastLeftSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
 		
 		double rightDelta = rightTarget - lastRightSpeed;
 		if (Math.abs(rightDelta)>MAX_INCREASE) {
 			rightDelta = ((rightDelta < 0) ? -1 : 1) * RAMPING_CONSTANT_1 * MathUtils.pow(2, RAMPING_CONSTANT_2 * rightTimer.get());
 		}else{
-            rightTimer.reset();
+			rightTimer.reset();
 		}
 		lastRightSpeed += rightDelta;
-        lastRightSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
+		lastRightSpeed = Math.min(Math.max(lastLeftSpeed,-1.0),1.0); // make sure that speed is in between -1 and 1
 
-        setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
+		setLeftRightMotorSpeeds(lastLeftSpeed,lastRightSpeed);
 		
 	}
 
@@ -102,10 +102,10 @@ public class DriveSystem extends RobotDrive {
 		resetDefaults();
 	}
 
-    public void resetDefaults() {
-    // It might get confused when we restart
+	public void resetDefaults() {
+	// It might get confused when we restart
 		lastLeftSpeed = 0.0;
 		lastRightSpeed = 0.0;
-    }
+	}
 
 }
