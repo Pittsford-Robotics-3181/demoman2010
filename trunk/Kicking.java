@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.*;
 /**		
 *	All the kicking functions are housed here.
 *	
-*	@author eric                                                 
+*	@author eric                                            
 *
 */
 
@@ -39,20 +39,20 @@ public class Kicking {
 			Hardware.solenoids[4].set(true);
 			// Retract the kicker
 			try {
-				(new HelloThread()).start();
+				(new RetractingThread()).start();
 			} catch (InterruptedException ex) {
 				// This shouldn't ever happen
-				System.out.println("Kicking thread has been interrupted");
+				System.out.println("Kicking thread has been interrupted :o");
 			}
 		} else {
             // Can't kick because the kicker isn't there!
 		}
 		
-		// If the latch is closed, shut off S1 and S2, because they've done their job
+		// If the latch is closed, make sure S1 and S2 are off, because they've done their job
 		if (Hardware.kickerLatchSwitch.get()) {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
-			// Start 3&4 to repressurize the piston
+			// Make sure 3&4 are on to repressurize the piston
 			Hardware.solenoids[2].set(true);
 			Hardware.solenoids[3].set(true);
 		}
@@ -74,10 +74,12 @@ public class Kicking {
 			Thread.sleep(650);
 			// Retract the kicker
 			while (!Hardware.kickerLatchSwitch.get()) {
-				Hardware.solenoids[0].set(true);
-				Hardware.solenoids[1].set(true);
+				// Uh, stop pressurizing
 				Hardware.solenoids[2].set(false);
 				Hardware.solenoids[3].set(false);
+				// And start retracting
+				Hardware.solenoids[0].set(true);
+				Hardware.solenoids[1].set(true);
 			}
 		}
 	}

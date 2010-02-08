@@ -37,13 +37,10 @@ public class DriveSystem extends RobotDrive {
 	}
 
 	// --- EXPONENTIAL RAMPING
-	// Exponential ramping
-	// Ramp to a given speed
-	// Eric thinks he can do calculus, but he really can't
-	// Ignore the next line
-	// Approximate the equation ds/dt = ln 2 * 2^t
-	// Increase/decrease speed by a constant times 2^t
-	// @benhazawesome
+	/**
+	*	Use exponential ramping to go to a certain speed.  Increase / decrease sped by a constant times 2^t
+	*
+	*/
 
 	public void driveAtSpeed(double leftTarget, double rightTarget)	{
 
@@ -96,13 +93,20 @@ public class DriveSystem extends RobotDrive {
 	//	--- END LINEAR RAMPING ---
 	*/
 	
-	// Stop EVERYTHING.
+	/**
+	*	Stop everything
+	*
+	*/
 	public void stop() {
 		setLeftRightMotorSpeeds(0.0, 0.0);
 		resetDefaults();
 	}
 
-	// It might get confused when we restart
+	/**
+	*	Reset all the defaults, set the last speeds to 0.  Just so it doesn't get confused when switching
+	*	drive modes.
+	*
+	*/
 	public void resetDefaults() {
 		lastLeftSpeed = 0.0;
 		lastRightSpeed = 0.0;
