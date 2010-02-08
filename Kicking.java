@@ -40,7 +40,7 @@ public class Kicking {
 			// Retract the kicker
 			try {
 				(new RetractingThread()).start();
-			} catch (InterruptedException ex) {
+			} catch (Exception ex) {
 				// This shouldn't ever happen
 				System.out.println("Kicking thread has been interrupted :o");
 			}
@@ -64,7 +64,7 @@ public class Kicking {
 	
 	// INNER CLASSS
 	private class RetractingThread extends Thread {
-		public void run() {
+		public static void run() {
 			// Wait .85 seconds
 			Thread.sleep(850);
 			// Reset the latch solenoid
