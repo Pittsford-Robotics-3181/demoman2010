@@ -94,7 +94,7 @@ public class DriveSystem extends RobotDrive {
 	*/
 	
 	/**
-	*	Stop everything
+	*	Stop everything.  Make sure that any moving parts are covered by this, so that when it's called, it's TRULY STOPPED.
 	*
 	*/
 	public void stop() {
