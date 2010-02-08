@@ -46,4 +46,8 @@ public class Hardware {
 		// TRUE means CLOSED
 		public static DigitalInput kickerLatchSwitch = new DigitalInput(4, 1);
 	
+		// Are we in "Stopped" mode?
+		// need hardware verification
+		// public static DigitalInput stoppedModeSwitch = new DigitalInput(9,9);
+	
 }

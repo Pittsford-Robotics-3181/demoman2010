@@ -139,6 +139,15 @@ public class Demoman extends IterativeRobot {
 	public void teleopPeriodic() {
 		Watchdog.getInstance().feed();
 		
+		// Are we in "stopped" mode?  This is a mode where we disabled ourselves WITHOUT the use
+		// of the e-stop button.  Useful for demonstrations.
+			// commented out until i can get a verification on the hardware
+		/*if(Hardware.stoppedModeSwitch.get())
+		{
+			Hardware.robotDrive.stop();
+			return;
+		}*/
+		
 		// Respond to drivers
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
