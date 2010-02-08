@@ -39,7 +39,7 @@ public class Kicking {
 			Hardware.solenoids[4].set(true);
 			// Retract the kicker
 			try {
-				(new RetractingThread()).start();
+				(new Thread(new RetractRunnable())).start();
 			} catch (Exception ex) {
 				// This shouldn't ever happen
 				System.out.println("Kicking thread has been interrupted :o");
@@ -63,15 +63,18 @@ public class Kicking {
 	}
 	
 	// INNER CLASSS
-	private class RetractingThread extends Thread {
-		public static void run() {
+	public class RetractRunnable implements Runnable {
+	
+		public void run() {
 			// Wait .85 seconds
-			Thread.sleep(850);
+			try {
+			Thread.sleep(850); } catch (Exception e) {}
 			// Reset the latch solenoid
 			Hardware.solenoids[4].set(false);
 			
 			// Wait .65 seconds
-			Thread.sleep(650);
+			try {
+			Thread.sleep(650); } catch (Exception e) {}
 			// Retract the kicker
 			while (!Hardware.kickerLatchSwitch.get()) {
 				// Uh, stop pressurizing
@@ -83,6 +86,7 @@ public class Kicking {
 			}
 		}
 	}
+
 	// END INNER CLASS
 
 }
