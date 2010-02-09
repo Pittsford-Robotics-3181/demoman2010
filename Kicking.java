@@ -63,7 +63,7 @@ public class Kicking {
 	}
 	
 	// INNER CLASSS
-	public class RetractRunnable implements Runnable {
+	public static class RetractRunnable implements Runnable {
 	
 		public void run() {
 			// Wait .85 seconds
