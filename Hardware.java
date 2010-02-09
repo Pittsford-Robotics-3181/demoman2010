@@ -49,5 +49,8 @@ public class Hardware {
 		// Are we in "Stopped" mode?
 		// need hardware verification
 		// public static DigitalInput stoppedModeSwitch = new DigitalInput(9,9);
+		
+	// Compressor
+		public static Compressor compressor  = new Compressor(14, 1);
 	
 }

@@ -37,6 +37,7 @@ public class DriveSystem extends RobotDrive {
 	}
 
 	// --- EXPONENTIAL RAMPING
+	// Ben wrote 
 	/**
 	*	Use exponential ramping to go to a certain speed.  Increase / decrease sped by a constant times 2^t
 	*
@@ -70,6 +71,7 @@ public class DriveSystem extends RobotDrive {
 
 	/*
 	//  --- LINEAR RAMPING ---
+	// Eric wrote this and it works.
 
 	// Ramp to a given speed
 	public void driveAtSpeed(double leftTarget, double rightTarget) {
@@ -100,6 +102,7 @@ public class DriveSystem extends RobotDrive {
 	public void stop() {
 		setLeftRightMotorSpeeds(0.0, 0.0);
 		resetDefaults();
+		Hardware.compressor.stop();
 	}
 
 	/**

@@ -77,7 +77,9 @@ public class Demoman extends IterativeRobot {
 		autonomousMode += Hardware.autonomousSwitches[1].get() ? 2 : 0;
 		// Rightmost worth 1
 		autonomousMode += Hardware.autonomousSwitches[2].get() ? 1 : 0;
-		
+
+		// Make sure the compressor is on
+		Hardware.compressor.start();
 		// Start the autonomous timer, referenced by all autonomous modes
 		autonomousTimer.start();
 	}
@@ -90,6 +92,8 @@ public class Demoman extends IterativeRobot {
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
 		Hardware.robotDrive.stop();
+		// Make sure the compressor is on
+		Hardware.compressor.start();
 	}
 	
 	
