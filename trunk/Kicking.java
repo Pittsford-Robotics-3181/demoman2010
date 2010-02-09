@@ -86,7 +86,6 @@ public class Kicking {
 			}
 		}
 	}
-
 	// END INNER CLASS
 
 }
