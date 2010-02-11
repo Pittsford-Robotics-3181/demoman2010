@@ -23,6 +23,11 @@ public class Hardware {
 	// Robot drive system
 	public static DriveSystem robotDrive = new DriveSystem(1, 3, 2, 4);
 	
+	// Ball roller motor
+	// Need hardware verification
+	//public static PWM ballRoller = new PWM(9,9);
+	
+	
 	// Joysticks
 	public static Joystick rightJoystick = new Joystick(1);
 	public static Joystick leftJoystick = new Joystick(2);
