@@ -21,6 +21,10 @@ public class DriveSystem extends RobotDrive {
 	// Maintain ramping state:
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
+	// Linear
+	double RAMPING_CONSTANT = .15;
+	
+	/* Expontential */
 	double RAMPING_CONSTANT_1 = 0.0001; //change this for different speeds
 	double RAMPING_CONSTANT_2 = 0.004; //not very useful
 	double MAX_INCREASE = 0.1;
@@ -42,7 +46,7 @@ public class DriveSystem extends RobotDrive {
 	*	Use exponential ramping to go to a certain speed.  Increase / decrease sped by a constant times 2^t
 	*
 	*/
-
+	/* Not using
 	public void driveAtSpeed(double leftTarget, double rightTarget)	{
 
 		double leftDelta = leftTarget - lastLeftSpeed;
@@ -68,8 +72,8 @@ public class DriveSystem extends RobotDrive {
 	}
 
 	// --- END EXPONENTIAL RAMPING ---
-
-	/*
+	*/
+	
 	//  --- LINEAR RAMPING ---
 	// Eric wrote this and it works.
 
@@ -93,7 +97,6 @@ public class DriveSystem extends RobotDrive {
 		setLeftRightMotorSpeeds(lastLeftSpeed, lastRightSpeed);
 	}
 	//	--- END LINEAR RAMPING ---
-	*/
 	
 	/**
 	*	Stop everything.  Make sure that any moving parts are covered by this, so that when it's called, it's TRULY STOPPED.
