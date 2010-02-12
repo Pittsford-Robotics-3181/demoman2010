@@ -43,10 +43,10 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void robotInit() {
 		System.out.println("Robot has been initialized!");
-		camera = AxisCamera.getInstance();
+		/*camera = AxisCamera.getInstance();
 		camera.writeCompression(0);
 		camera.writeBrightness(10);
-		camera.writeResolution(AxisCamera.ResolutionT.k160x120);
+		camera.writeResolution(AxisCamera.ResolutionT.k160x120);*/
 	}
 	
 	/**
@@ -118,7 +118,8 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void autonomousPeriodic() {
 		Watchdog.getInstance().feed();
-		switch (autonomousMode) {
+		updateDashboard();
+				switch (autonomousMode) {
 			case 0:
 				AutonomousDoNothing.run();
 				break;
@@ -151,8 +152,8 @@ public class Demoman extends IterativeRobot {
 			Hardware.robotDrive.stop();
 			return;
 		}*/
-		
-		// Respond to drivers
+						// Respond to drivers
+		updateDashboard();
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
@@ -161,5 +162,81 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.rightJoystick.getTrigger()) {
 			Kicking.kickBall();
 		}
+	}
+	void updateDashboard() {
+		Dashboard lowDashData = DriverStation.getInstance().getDashboardPackerLow();
+		lowDashData.addCluster();
+		{
+			lowDashData.addCluster();
+			{	 //analog modules
+				lowDashData.addCluster();
+				{
+					for (int i = 1; i <= 8; i++) {
+						lowDashData.addFloat((float) AnalogModule.getInstance(1).getAverageVoltage(i));
+					}
+				}
+				lowDashData.finalizeCluster();
+				lowDashData.addCluster();
+				{
+					for (int i = 1; i <= 8; i++) {
+						lowDashData.addFloat((float) AnalogModule.getInstance(2).getAverageVoltage(i));
+					}
+				}
+				lowDashData.finalizeCluster();
+			}
+			lowDashData.finalizeCluster();
+
+			lowDashData.addCluster();
+			{ //digital modules
+				lowDashData.addCluster();
+				{
+					lowDashData.addCluster();
+					{
+						int module = 4;
+						lowDashData.addByte(DigitalModule.getInstance(module).getRelayForward());
+						lowDashData.addByte(DigitalModule.getInstance(module).getRelayForward());
+						lowDashData.addShort(DigitalModule.getInstance(module).getAllDIO());
+						lowDashData.addShort(DigitalModule.getInstance(module).getDIODirection());
+						lowDashData.addCluster();
+						{
+							for (int i = 1; i <= 10; i++) {
+								lowDashData.addByte((byte) DigitalModule.getInstance(module).getPWM(i));
+							}
+						}
+						lowDashData.finalizeCluster();
+					}
+					lowDashData.finalizeCluster();
+				}
+				lowDashData.finalizeCluster();
+
+				lowDashData.addCluster();
+				{
+					lowDashData.addCluster();
+					{
+						int module = 6;
+						lowDashData.addByte(DigitalModule.getInstance(module).getRelayForward());
+						lowDashData.addByte(DigitalModule.getInstance(module).getRelayReverse());
+						lowDashData.addShort(DigitalModule.getInstance(module).getAllDIO());
+						lowDashData.addShort(DigitalModule.getInstance(module).getDIODirection());
+						lowDashData.addCluster();
+						{
+							for (int i = 1; i <= 10; i++) {
+								lowDashData.addByte((byte) DigitalModule.getInstance(module).getPWM(i));
+							}
+						}
+						lowDashData.finalizeCluster();
+					}
+					lowDashData.finalizeCluster();
+				}
+				lowDashData.finalizeCluster();
+
+			}
+			lowDashData.finalizeCluster();
+
+			lowDashData.addByte(Solenoid.getAll());
+		}
+		lowDashData.finalizeCluster();
+		lowDashData.commit();
+
 	}
 }
