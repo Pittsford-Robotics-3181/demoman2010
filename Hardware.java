@@ -21,7 +21,8 @@ import edu.wpi.first.wpilibj.*;
 
 public class Hardware {
 	// Robot drive system
-	public static DriveSystem robotDrive = new DriveSystem(1, 3, 2, 4);
+	// 1 is left; 2 is right
+	public static DriveSystem robotDrive = new DriveSystem(1, 2);
 	
 	// Ball roller motor
 	// Need hardware verification
