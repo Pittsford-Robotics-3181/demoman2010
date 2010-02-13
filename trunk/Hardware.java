@@ -25,8 +25,12 @@ public class Hardware {
 	public static DriveSystem robotDrive = new DriveSystem(1, 2);
 	
 	// Ball roller motor
-	// Need hardware verification
-	//public static PWM ballRoller = new PWM(9,9);
+	// need hardware verification
+	// public static PWM ballRoller = new PWM(9,9);
+	
+	// Winch motor
+	// need hardware verification
+	// public static PWM winchMotor = new PWM(9, 9);
 	
 	
 	// Joysticks
@@ -51,6 +55,10 @@ public class Hardware {
 		// Has the kicker returned to its home position, with latch closed?
 		// TRUE means CLOSED
 		public static DigitalInput kickerLatchSwitch = new DigitalInput(4, 1);
+
+		// Activate the winch
+		// need hardware verification
+		// public static DigitalInput fireWinch = new DigitalInput(9, 9);
 	
 		// Are we in "Stopped" mode?
 		// need hardware verification
