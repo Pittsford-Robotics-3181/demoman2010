@@ -164,7 +164,7 @@ public class Demoman extends IterativeRobot {
 		}
 		
 		// Firing the winch?
-		if (Hardware.winchSwitch.get()) {
+		if (DriverStation.getInstance().getDigitalIn(4)) {
 			Winch.lift();
 		}
 	}
