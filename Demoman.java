@@ -162,7 +162,19 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.rightJoystick.getTrigger()) {
 			Kicking.kickBall();
 		}
+		
+		// Firing the winch?
+		if (Hardware.winchSwitch.get()) {
+			Winch.lift();
+		}
 	}
+	
+	/**
+	*	Update the dashboard with cool information.  Talk to Reese if you want to know specifics
+	*	about this function, he got it from teh internetz and put it in here, but didn't both
+	*	to write documentation for it.
+	*
+	*/
 	void updateDashboard() {
 		Dashboard lowDashData = DriverStation.getInstance().getDashboardPackerLow();
 		lowDashData.addCluster();
