@@ -163,10 +163,19 @@ public class Demoman extends IterativeRobot {
 			Kicking.kickBall();
 		}
 		
-		// Firing the winch?
-		if (DriverStation.getInstance().getDigitalIn(4)) {
-			Winch.lift();
+		// (UN)Locking the winch?
+		if (Hardware.DS.getEnhancedIO().getDigital(2)) {
+			Winch.changeLockState();
 		}
+		Winch.actOnLockState();
+		
+		// Lifting us up?
+		if (Hardware.DS.getEnhancedIO().getDigital(1)) {
+			Winch.lift();
+		} else {
+			Winch.stop();
+		}
+		
 	}
 	
 	/**

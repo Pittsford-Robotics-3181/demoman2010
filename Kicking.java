@@ -52,9 +52,11 @@ public class Kicking {
 		if (Hardware.kickerLatchSwitch.get()) {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
-			// Make sure 3&4 are on to repressurize the piston
+			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
+			if (want normal power) {
 			Hardware.solenoids[2].set(true);
 			Hardware.solenoids[3].set(true);
+			}
 		}
 		
 		// DIAGNOSTIC - use a solenoid because println eats all the ram
