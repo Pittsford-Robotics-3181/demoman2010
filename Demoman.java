@@ -176,6 +176,19 @@ public class Demoman extends IterativeRobot {
 			Winch.stop();
 		}
 		
+		// Control the ball roller
+		if (Hardware.DS.getEnhancedIO().getDigital(3)) {
+			// If 3 is true, we're rolling forward
+			Hardware.ballRoller.set(1);
+		} else if (Hardware.DS.getEnhanced().getDigital(4)) {
+			// If 3 is false, it's possible 4 is true, in which case we want to go backward
+			// Remember, if 3 is true there is no possible way 4 is also true, so an else if works
+			Hardware.ballRoller.set(-1);
+		} else {
+			// Neither are true, so let's turn it off (Flipper is in the middle)
+			Hardware.ballRoller.set(0);
+		}
+		
 	}
 	
 	/**
