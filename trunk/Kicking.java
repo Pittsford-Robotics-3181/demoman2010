@@ -53,9 +53,9 @@ public class Kicking {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
 			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
-			if (want normal power) {
-			Hardware.solenoids[2].set(true);
-			Hardware.solenoids[3].set(true);
+			if (DS.getEnhancedIO().getDigital(6)) {
+				Hardware.solenoids[2].set(true);
+				Hardware.solenoids[3].set(true);
 			}
 		}
 		
