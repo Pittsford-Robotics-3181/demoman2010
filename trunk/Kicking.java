@@ -48,6 +48,15 @@ public class Kicking {
             // Can't kick because the kicker isn't there!
 		}
 		
+		// DIAGNOSTIC - use a solenoid because println eats all the ram
+		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
+		
+	}
+	
+	/**
+	*	Perform maintenance on the pressure.  Call in all loops you're kicking.
+	*/
+	public void pressureMaintenance() {
 		// If the latch is closed, make sure S1 and S2 are off, because they've done their job
 		if (Hardware.kickerLatchSwitch.get()) {
 			Hardware.solenoids[0].set(false);
@@ -58,10 +67,6 @@ public class Kicking {
 				Hardware.solenoids[3].set(true);
 			}
 		}
-		
-		// DIAGNOSTIC - use a solenoid because println eats all the ram
-		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
-		
 	}
 	
 	// INNER CLASSS
