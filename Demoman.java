@@ -159,7 +159,7 @@ public class Demoman extends IterativeRobot {
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
-		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger()) {
+		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || DS.getEnhancedIO.getDigital(5)) {
 			Kicking.kickBall();
 		}
 		
