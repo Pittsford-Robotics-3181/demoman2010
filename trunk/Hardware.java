@@ -20,23 +20,24 @@ import edu.wpi.first.wpilibj.*;
 */
 
 public class Hardware {
+	// Driver Station
+	public static DriverStation DS = DriverStation.getInstance();
+
 	// Robot drive system
 	// 1 is left; 2 is right
 	public static DriveSystem robotDrive = new DriveSystem(1, 2);
 	
 	// Ball roller motor
-	public static PWM ballRoller = new PWM(4,4);
+	public static PWM ballRoller = new PWM(4, 4);
 	
 	// Winch motor
 	public static PWM winchMotor = new PWM(4, 3);
-	
 	
 	// Joysticks
 	public static Joystick rightJoystick = new Joystick(1);
 	public static Joystick leftJoystick = new Joystick(2);
 	
 	// Solenoids
-	// Declared anonymously because we couldn't get the syntax to work otherwise D:
     public static Solenoid[] solenoids = {
         new Solenoid(1), new Solenoid(2), new Solenoid(3),
         new Solenoid(4), new Solenoid(5), new Solenoid(6),
