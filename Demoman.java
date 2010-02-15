@@ -130,6 +130,7 @@ public class Demoman extends IterativeRobot {
 				AutonomousZone2.run();
 				break;
 		}
+		Kicking.pressureMaintenance();
 	}
 	
 	/**
@@ -162,6 +163,8 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || DS.getEnhancedIO.getDigital(5)) {
 			Kicking.kickBall();
 		}
+		Kicking.pressureMaintenance()
+		
 		
 		// (UN)Locking the winch?
 		if (Hardware.DS.getEnhancedIO().getDigital(2)) {
