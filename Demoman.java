@@ -163,7 +163,7 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || DS.getEnhancedIO.getDigital(5)) {
 			Kicking.kickBall();
 		}
-		Kicking.pressureMaintenance()
+		Kicking.pressureMaintenance();
 		
 		
 		// (UN)Locking the winch?
