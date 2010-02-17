@@ -31,7 +31,7 @@ public class Winch {
 		// need channel verification
                 int intSpeed = 8675309; // reference number: we'll know if this isn't being overwritten
                 try {
-                    intSpeed = (int) Hardware.DS.getEnhancedIO().getAnalogIn(2);
+                    intSpeed = (int) Hardware.DS.getAnalogInput('y');
                 } catch (Exception e) {
                     System.out.println("Enhanced IO Exception: Reading how fast the winch should pull us up");
                 }

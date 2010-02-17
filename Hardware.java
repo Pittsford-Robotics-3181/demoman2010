@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.*;
 */
 
 public class Hardware {
-	// Driver Station
-	public static DriverStation DS = DriverStation.getInstance();
+	// Driver Station.  It's a freaking Joystick.
+	public static DriveHub DS = new DriveHub(000);
 
 	// Robot drive system
 	// 1 is left; 2 is right
