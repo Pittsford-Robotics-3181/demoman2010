@@ -160,59 +160,29 @@ public class Demoman extends IterativeRobot {
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
-                boolean dsFire = false;
-                try {
-                    dsFire = Hardware.DS.getEnhancedIO().getDigital(5);
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception while checking to see if the Driver Station wants to fire.");
-                }
-		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || dsFire) {
+		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || Hardware.DS.getDigitalInput(5)) {
 			Kicking.kickBall();
 		}
 		Kicking.pressureMaintenance();
 		
 		
 		// (UN)Locking the winch?
-                boolean winchLock = false;
-                try {
-                    winchLock = Hardware.DS.getEnhancedIO().getDigital(2);
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception while checking to see if winch should lock / unlock");
-                }
-		if (winchLock) {
+		if (Hardware.DS.getDigitalInput(2)) {
 			Winch.changeLockState();
 		}
 		Winch.actOnLockState();
 		
 		// Lifting us up?
-                boolean beamUsUp = false;
-                try {
-                    beamUsUp = Hardware.DS.getEnhancedIO().getDigital(1);
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception while checking to see if the winch should lift us up.");
-                }
-		if (beamUsUp) {
+		if (Hardware.DS.getDigitalInput(1)) {
 			Winch.lift();
 		} else {
 			Winch.stop();
 		}
 		
 		// Control the ball roller
-                boolean rollForward = false;
-                boolean rollBackward = false;
-                try {
-                    rollForward = Hardware.DS.getEnhancedIO().getDigital(3);
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception while checking to see if we should roll the ball forward");
-                }
-                try {
-                    rollBackward = Hardware.DS.getEnhancedIO().getDigital(4);
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception while checking to see if we should roll the ball backward");
-                }
-		if (rollForward) {
+		if (Hardware.DS.getDigitalInput(3)) {
 			Hardware.ballRoller.set(1);
-		} else if (rollBackward) {
+		} else if (Hardware.DS.getDigitalInput(4)) {
 			// Remember, if 3 is true there is no possible way 4 is also true, so an else if works
 			Hardware.ballRoller.set(-1);
 		} else {

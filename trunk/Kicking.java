@@ -62,14 +62,10 @@ public class Kicking {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
 			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
-			try {
-                            if (Hardware.DS.getEnhancedIO().getDigital(6)) {
-                                    Hardware.solenoids[2].set(true);
-                                    Hardware.solenoids[3].set(true);
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Enhanced IO Exception while performing pressure maintenance: Checking the DS for kick velocity.");
-                        }
+            if (Hardware.DS.getDigitalInput(6)) {
+                Hardware.solenoids[2].set(true);
+                Hardware.solenoids[3].set(true);
+            }
 		}
 	}
 	
