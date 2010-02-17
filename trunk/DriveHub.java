@@ -22,7 +22,7 @@ public class DriveHub extends Joystick {
 	/**
 	*	Constructor: Currently, what port the not-joystick is on.
 	*/
-	public void DriveHub(int port) {
+	DriveHub(int port) {
 		super(port);
 	}
 	
@@ -34,22 +34,15 @@ public class DriveHub extends Joystick {
 	*	Return the value of a joystick's stick thingy.
 	*/
 	public double getAnalogInput(String axis) {
-		switch (axis) {
-			case "y":
-			case "Y":
-				return getY();
-				break;
-			case "x":
-			case "X":
-				return getX();
-				break;
-			case "z":
-			case "Z":
-				return getZ();
-				break;
-			}
-		}
+		if (axis.equals("y") || axis.equals("Y")) {
+                    return getY();
+                }
+		if (axis.equals("x") || axis.equals("X")) {
+                    return getX();
+                }
+                if (axis.equals("z") || axis.equals("Z")) {
+                    return getZ();
+                }
+                return 0.0;
 	}
-
-
 }
