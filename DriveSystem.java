@@ -36,8 +36,8 @@ public class DriveSystem extends RobotDrive {
 	*	Constructor for the DriveSystem, does nothing but call the RobotDrive constructor.
 	*
 	*/
-	DriveSystem (int frontLeftMotor, int rearLeftMotor, int frontRightMotor, int rearRightMotor) {
-		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+	DriveSystem (int leftMotor, int rightMotor) {
+		super(leftMotor, rightMotor);
 	}
 
 	// --- EXPONENTIAL RAMPING

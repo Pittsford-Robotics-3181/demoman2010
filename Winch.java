@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj.*;
 
 public class Winch {
 	
-	boolean locked = false;
-	boolean stateLocked = false;
-	Timer llt = new Timer();
+	private static boolean locked = false;
+	private static boolean stateLocked = false;
+	private static Timer llt = new Timer();
 	
 	
 	/**
@@ -29,8 +29,13 @@ public class Winch {
 	public static void lift() {
 		// 0 - 1023
 		// need channel verification
-		int intSpeed = Hardware.DS.getEnhancedIO().getAnalogIn(2);
-		System.out.println("Lifting the winch.  The pure value from the dial is: " + intSpeed);
+                int intSpeed = 8675309; // reference number: we'll know if this isn't being overwritten
+                try {
+                    intSpeed = (int) Hardware.DS.getEnhancedIO().getAnalogIn(2);
+                } catch (Exception e) {
+                    System.out.println("Enhanced IO Exception: Reading how fast the winch should pull us up");
+                }
+                System.out.println("Lifting the winch.  The pure value from the dial is: " + intSpeed);
 		double dSpeed = (intSpeed / 1025);
 		
 		Hardware.winchMotor.set(dSpeed);

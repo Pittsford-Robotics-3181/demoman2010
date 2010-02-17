@@ -56,16 +56,20 @@ public class Kicking {
 	/**
 	*	Perform maintenance on the pressure.  Call in all loops you're kicking.
 	*/
-	public void pressureMaintenance() {
+	public static void pressureMaintenance() {
 		// If the latch is closed, make sure S1 and S2 are off, because they've done their job
 		if (Hardware.kickerLatchSwitch.get()) {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
 			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
-			if (DS.getEnhancedIO().getDigital(6)) {
-				Hardware.solenoids[2].set(true);
-				Hardware.solenoids[3].set(true);
-			}
+			try {
+                            if (Hardware.DS.getEnhancedIO().getDigital(6)) {
+                                    Hardware.solenoids[2].set(true);
+                                    Hardware.solenoids[3].set(true);
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Enhanced IO Exception while performing pressure maintenance: Checking the DS for kick velocity.");
+                        }
 		}
 	}
 	
