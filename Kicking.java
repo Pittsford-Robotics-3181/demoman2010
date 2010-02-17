@@ -62,7 +62,7 @@ public class Kicking {
 			Hardware.solenoids[0].set(false);
 			Hardware.solenoids[1].set(false);
 			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
-            if (Hardware.DS.getDigitalInput(6)) {
+            if (Hardware.DS.getDigitalInput(8)) {
                 Hardware.solenoids[2].set(true);
                 Hardware.solenoids[3].set(true);
             }

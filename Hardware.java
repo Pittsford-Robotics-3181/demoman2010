@@ -21,14 +21,14 @@ import edu.wpi.first.wpilibj.*;
 
 public class Hardware {
 	// Driver Station.  It's a freaking Joystick.
-	public static DriveHub DS = new DriveHub(000);
+	public static DriveHub DS = new DriveHub(3);
 
 	// Robot drive system
-	// 1 is left; 2 is right
-	public static DriveSystem robotDrive = new DriveSystem(1, 2);
+	// 1 is left; 10 is right
+	public static DriveSystem robotDrive = new DriveSystem(1, 10);
 	
 	// Ball roller motor
-	public static Jaguar ballRoller = new Jaguar(4, 4);
+	public static Victor ballRoller = new Victor(4, 4);
 	
 	// Winch motor
 	public static Jaguar winchMotor = new Jaguar(4, 3);

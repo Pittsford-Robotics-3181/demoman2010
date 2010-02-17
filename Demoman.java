@@ -33,8 +33,13 @@ public class Demoman extends IterativeRobot {
 
 	// Camera
 	AxisCamera camera;
-	
-	
+
+        // There was a problem with the wiring of DS DI 5, it's
+        // normally closed.  Reversing logic causes problems
+        // if the DS isn't hooked up... so run checks to make
+        // sure it is, and if not, we take appropriate action
+        boolean fiveHookedUp = false;
+
 	/*--- Initialization Routines ---*/
 	/**
 	*	Procedures for when the robot has just been booted, but has NOT been put into any mode.
@@ -43,6 +48,12 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void robotInit() {
 		System.out.println("Robot has been initialized!");
+
+                // Check for the presence of DSDI five
+                if (Hardware.DS.getDigitalInput(5))
+                {
+                    fiveHookedUp = true;
+                }
 		/*camera = AxisCamera.getInstance();
 		camera.writeCompression(0);
 		camera.writeBrightness(10);
@@ -55,7 +66,14 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void disabledInit() {
-		System.out.println("Robot has been disabled");
+                // Failsafe for DSDI5 check.  In case somebody was pushing
+                // the button during the other checks.
+                if (Hardware.DS.getDigitalInput(5))
+                {
+                    fiveHookedUp = true;
+                }
+
+		System.out.println("Robot has been disabled id-feb17");
 	}
 	
 	/**
@@ -67,7 +85,14 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void autonomousInit() {
 		System.out.println("Robot has been put into autonomous mode");
-		// Stop everything.
+                // Failsafe for DSDI5 check.  In case somebody was pushing
+                // the button during the other checks.
+                if (Hardware.DS.getDigitalInput(5))
+                {
+                    fiveHookedUp = true;
+                }
+
+                // Stop everything.
 		Hardware.robotDrive.stop();
 		
 		// Find out which autnomous mode we want
@@ -91,7 +116,13 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
-		Hardware.robotDrive.stop();
+                // Failsafe for DSDI5 check.  In case somebody was pushing
+                // the button during the other checks.
+                if (Hardware.DS.getDigitalInput(5))
+                {
+                    fiveHookedUp = true;
+                }
+                Hardware.robotDrive.stop();
 		// Make sure the compressor is on
 		Hardware.compressor.start();
 	}
@@ -117,7 +148,7 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void autonomousPeriodic() {
-		Watchdog.getInstance().feed();
+            Watchdog.getInstance().feed();
 		updateDashboard();
 				switch (autonomousMode) {
 			case 0:
@@ -160,36 +191,48 @@ public class Demoman extends IterativeRobot {
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
-		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || Hardware.DS.getDigitalInput(5)) {
+		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || Hardware.DS.getDigitalInput(6)) {
 			Kicking.kickBall();
 		}
 		Kicking.pressureMaintenance();
 		
 		
 		// (UN)Locking the winch?
-		if (Hardware.DS.getDigitalInput(2)) {
+                // Since DSDI5 is normally closed, we reverse its logic--
+                // but make sure that it's present before we reverse its logic.
+		if (!Hardware.DS.getDigitalInput(5) && fiveHookedUp) {
 			Winch.changeLockState();
 		}
 		Winch.actOnLockState();
 		
 		// Lifting us up?
-		if (Hardware.DS.getDigitalInput(1)) {
-			Winch.lift();
-		} else {
+		if (Hardware.DS.getDigitalInput(7)) {
+                    // All the way left is read as -1, all the way right as +1
+                    // But we want to convert that to a double 0-1, so we add
+                    // one to make the range 0-2, then half that to get our
+                    // final value
+                    double raw = Hardware.DS.getAnalogInput("y");
+                    System.out.println(raw);
+                    Winch.lift((raw + 1 ) /2);
+		} else if (Hardware.rightJoystick.getRawButton(4)) {
+                    Winch.lift(Math.abs(Hardware.rightJoystick.getX()));
+                } else if (Hardware.leftJoystick.getRawButton(4)) {
+                    Winch.lift(Math.abs(Hardware.leftJoystick.getX()));
+                } else {
 			Winch.stop();
 		}
-		
+
 		// Control the ball roller
 		if (Hardware.DS.getDigitalInput(3)) {
 			Hardware.ballRoller.set(1);
-		} else if (Hardware.DS.getDigitalInput(4)) {
+		} else if (Hardware.DS.getDigitalInput(2)) {
 			// Remember, if 3 is true there is no possible way 4 is also true, so an else if works
 			Hardware.ballRoller.set(-1);
 		} else {
 			// Neither are true, so let's turn it off (Flipper is in the middle)
 			Hardware.ballRoller.set(0);
 		}
-		
+
 	}
 	
 	/**

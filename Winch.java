@@ -26,19 +26,12 @@ public class Winch {
 	*	Move up move up move up!  Still need to figure out when to stop though....
 	*
 	*/
-	public static void lift() {
+	public static void lift(double speed) {
 		// 0 - 1023
 		// need channel verification
-                int intSpeed = 8675309; // reference number: we'll know if this isn't being overwritten
-                try {
-                    intSpeed = (int) Hardware.DS.getAnalogInput('y');
-                } catch (Exception e) {
-                    System.out.println("Enhanced IO Exception: Reading how fast the winch should pull us up");
-                }
-                System.out.println("Lifting the winch.  The pure value from the dial is: " + intSpeed);
-		double dSpeed = (intSpeed / 1025);
+                System.out.println("Lifting the winch.  The requested speed is " + speed);
 		
-		Hardware.winchMotor.set(dSpeed);
+		Hardware.winchMotor.set(speed);
 	}
 	
 	/**
