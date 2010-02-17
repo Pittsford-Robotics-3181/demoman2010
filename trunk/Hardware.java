@@ -28,10 +28,10 @@ public class Hardware {
 	public static DriveSystem robotDrive = new DriveSystem(1, 2);
 	
 	// Ball roller motor
-	public static PWM ballRoller = new PWM(4, 4);
+	public static Jaguar ballRoller = new Jaguar(4, 4);
 	
 	// Winch motor
-	public static PWM winchMotor = new PWM(4, 3);
+	public static Jaguar winchMotor = new Jaguar(4, 3);
 	
 	// Joysticks
 	public static Joystick rightJoystick = new Joystick(1);
