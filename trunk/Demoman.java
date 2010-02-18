@@ -188,6 +188,7 @@ public class Demoman extends IterativeRobot {
 		updateDashboard();
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
+                goRight *= -1; // tmp fix cause mech sucks
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
@@ -207,17 +208,11 @@ public class Demoman extends IterativeRobot {
 		
 		// Lifting us up?
 		if (Hardware.DS.getDigitalInput(7)) {
-                    // All the way left is read as -1, all the way right as +1
-                    // But we want to convert that to a double 0-1, so we add
-                    // one to make the range 0-2, then half that to get our
-                    // final value
-                    double raw = Hardware.DS.getAnalogInput("y");
-                    System.out.println(raw);
-                    Winch.lift((raw + 1 ) /2);
+                    Winch.lift(Hardware.DS.getAnalogInput("y"));
 		} else if (Hardware.rightJoystick.getRawButton(4)) {
-                    Winch.lift(Math.abs(Hardware.rightJoystick.getX()));
+                    Winch.lift(Hardware.rightJoystick.getX());
                 } else if (Hardware.leftJoystick.getRawButton(4)) {
-                    Winch.lift(Math.abs(Hardware.leftJoystick.getX()));
+                    Winch.lift(Hardware.leftJoystick.getX());
                 } else {
 			Winch.stop();
 		}
