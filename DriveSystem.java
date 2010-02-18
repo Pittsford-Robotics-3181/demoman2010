@@ -22,7 +22,7 @@ public class DriveSystem extends RobotDrive {
 	double lastLeftSpeed = 0.0;
 	double lastRightSpeed = 0.0;
 	// Linear
-	double RAMPING_CONSTANT = .15;
+	double RAMPING_CONSTANT = .03;
 	
 	/* Expontential */
 	double RAMPING_CONSTANT_1 = 0.0001; //change this for different speeds
