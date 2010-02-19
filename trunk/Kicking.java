@@ -73,15 +73,15 @@ public class Kicking {
 	public static class RetractRunnable implements Runnable {
 	
 		public void run() {
-			// Wait .85 seconds
+			// Wait .5 seconds
 			try {
-			Thread.sleep(850); } catch (Exception e) {}
+			Thread.sleep(500); } catch (Exception e) {}
 			// Reset the latch solenoid
 			Hardware.solenoids[4].set(false);
 			
-			// Wait .65 seconds
+			// Wait .75 seconds
 			try {
-			Thread.sleep(650); } catch (Exception e) {}
+			Thread.sleep(750); } catch (Exception e) {}
 			// Retract the kicker
 			while (!Hardware.kickerLatchSwitch.get()) {
 				// Uh, stop pressurizing

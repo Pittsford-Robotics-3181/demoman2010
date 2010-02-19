@@ -57,7 +57,7 @@ public class Demoman extends IterativeRobot {
 		/*camera = AxisCamera.getInstance();
 		camera.writeCompression(0);
 		camera.writeBrightness(10);
-		camera.writeResolution(AxisCamera.ResolutionT.k160x120);*/
+		camera.writeResolution(AxisCamera.ResolutionT.k160x120) ;*/
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void disabledPeriodic() {
-		Watchdog.getInstance().feed();
+		//Watchdog.getInstance().feed();
 	}
 	
 	/**
@@ -148,7 +148,6 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void autonomousPeriodic() {
-            Watchdog.getInstance().feed();
 		updateDashboard();
 				switch (autonomousMode) {
 			case 0:
@@ -174,7 +173,6 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void teleopPeriodic() {
-		Watchdog.getInstance().feed();
 		
 		// Are we in "stopped" mode?  This is a mode where we disabled ourselves WITHOUT the use
 		// of the e-stop button.  Useful for demonstrations.
@@ -184,7 +182,7 @@ public class Demoman extends IterativeRobot {
 			Hardware.robotDrive.stop();
 			return;
 		}*/
-						// Respond to drivers
+            // Respond to drivers
 		updateDashboard();
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
