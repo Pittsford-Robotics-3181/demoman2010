@@ -18,7 +18,8 @@ import edu.wpi.first.wpilibj.*;
 public class Winch {
 	
 	private static boolean locked = false;
-	private static boolean stateLocked = false;
+	// If true, we can't lock or unlock
+	private static boolean stateLocked = false; 
 	private static Timer llt = new Timer();
 	
 	

@@ -52,6 +52,11 @@ public class AutonomousZone2 {
 	*/
 	
 	static void run(){
+	
+		if (Hardware.ballSensor.get()) {
+			Kicking.kickBall();
+		}
+	
 		double timerValue=Demoman.autonomousTimer.get();
 		if(timerValue<.5){}
 		else if(timerValue<1.5){

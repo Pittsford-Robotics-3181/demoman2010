@@ -206,12 +206,12 @@ public class Demoman extends IterativeRobot {
 		
 		// Lifting us up?
 		if (Hardware.DS.getDigitalInput(7)) {
-                    Winch.lift(Hardware.DS.getAnalogInput("y"));
+			Winch.lift(Hardware.DS.getAnalogInput("y"));
 		} else if (Hardware.rightJoystick.getRawButton(4)) {
-                    Winch.lift(Hardware.rightJoystick.getX());
-                } else if (Hardware.leftJoystick.getRawButton(4)) {
-                    Winch.lift(Hardware.leftJoystick.getX());
-                } else {
+            Winch.lift(Hardware.rightJoystick.getX());
+		} else if (Hardware.leftJoystick.getRawButton(4)) {
+			Winch.lift(Hardware.leftJoystick.getX());
+		} else {
 			Winch.stop();
 		}
 
@@ -225,6 +225,9 @@ public class Demoman extends IterativeRobot {
 			// Neither are true, so let's turn it off (Flipper is in the middle)
 			Hardware.ballRoller.set(0);
 		}
+		
+		// Give output to the driver
+		Hardware.DS.giveOutput();
 
 	}
 	

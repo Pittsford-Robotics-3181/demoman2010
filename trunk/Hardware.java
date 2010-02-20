@@ -54,11 +54,30 @@ public class Hardware {
 		// Has the kicker returned to its home position, with latch closed?
 		// TRUE means CLOSED
 		public static DigitalInput kickerLatchSwitch = new DigitalInput(4, 1);
+		
+		// Kicker Sensor - Are we ready to kick
+		public static DigitalInput ballSensor = new DigitalInput(4, 5);
 	
 		// Are we in "Stopped" mode?
 		// need hardware verification
 		// public static DigitalInput stoppedModeSwitch = new DigitalInput(9,9);
-		
+	
+	// Digital Outputs
+		// Kicker Ready
+		public static DigitalOutput[] kickerReady = {
+			new DigitalOutput(4, 3), new DigitalOutput(4, 4)
+			};
+	
+		// Ball sensor
+		public static DigitalOutput[] ballReady = {
+			new DigitalOutput(4, 1), new DigitalOutput(4, 2)
+			};
+			
+		// Winch Locked
+		public static DigitalOutput[] winchLocked = {
+			new DigitalOutput(4, 7), new DigitalOutput(4, 8);
+			};
+	
 	// Compressor
 		public static Compressor compressor  = new Compressor(14, 1);
 	
