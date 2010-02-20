@@ -75,7 +75,7 @@ public class Hardware {
 			
 		// Winch Locked
 		public static DigitalOutput[] winchLocked = {
-			new DigitalOutput(4, 7), new DigitalOutput(4, 8);
+			new DigitalOutput(4, 7), new DigitalOutput(4, 8)
 			};
 	
 	// Compressor

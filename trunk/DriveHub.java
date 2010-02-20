@@ -52,23 +52,20 @@ public class DriveHub extends Joystick {
 	public void giveOutput() {
 		// Is the kicker loaded?
 		if (Hardware.kickerLatchSwitch.get()) {
-			for (DigitalOutput i : Hardware.kickerReady) {
-				i.set(true);
-			}
+                        Hardware.kickerReady[0].set(true);
+                        Hardware.kickerReady[1].set(true);
 		}
 		
 		// Is the ball ready to be kicked?
 		if (Hardware.ballSensor.get()) {
-			for (DigitalOutput i : Hardware.ballReady) {
-				i.set(true);
-			}
+                        Hardware.ballReady[0].set(true);
+                        Hardware.ballReady[1].set(true);
 		}
 		
 		// Is the winch locked?
 		if (Winch.isLocked()) {
-			for (DigitalOutput i : Hardware.winchLocked) {
-				i.set(true);
-			}
+                        Hardware.winchLocked[0].set(true);
+                        Hardware.winchLocked[1].set(true);
 		}
 	
 	}
