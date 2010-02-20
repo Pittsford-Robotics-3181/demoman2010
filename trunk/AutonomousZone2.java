@@ -58,7 +58,7 @@ public class AutonomousZone2 {
 		double timerValue=Demoman.autonomousTimer.get();
 		if(timerValue<.5){}
 		else if(timerValue<1.5){
-			Hardware.robotDrive.driveAtSpeed(1.0,1.0);
+			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
 		}
 		else if(timerValue<3.0){
 			Hardware.robotDrive.stop();
@@ -68,14 +68,14 @@ public class AutonomousZone2 {
 			//Rotate right - use Hardware.robotDrive.driveAtSpeed(-1.0,1.0)?
 		}
 		else if(timerValue<5.0){
-			Hardware.robotDrive.driveAtSpeed(1.0,1.0);
+			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
 		}
 		else if(timerValue<6.0){
 			Hardware.robotDrive.stop();
 			//Rotate left - use Hardware.robotDrive.driveAtSpeed(1.0,-1.0)?
 		}
 		else if(timerValue<7.0){
-			Hardware.robotDrive.driveAtSpeed(1.0,1.0);
+			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
 		}
 		else if(timerValue<8.5){
 			Hardware.robotDrive.stop();
