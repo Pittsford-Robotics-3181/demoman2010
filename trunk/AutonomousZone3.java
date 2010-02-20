@@ -14,12 +14,6 @@ package demoman;
 *
 */
 
-/**
- * @todo Figure out the coding to turn the robot.
- *
- * @author Chris
- */
-
 /* Execute this Autonomous Method if:
 
 ----------------------------------

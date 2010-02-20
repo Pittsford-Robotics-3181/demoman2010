@@ -28,7 +28,7 @@ public class AutonomousZone1 {
 		if(timerValue<.5){
 		
 		}else if(timerValue<1.5){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
+			Hardware.robotDrive.driveAtSpeed(1.0,1.0);
 		}else if(timerValue<3.0){
 			Hardware.robotDrive.stop();
 			Kicking.kickBall();
