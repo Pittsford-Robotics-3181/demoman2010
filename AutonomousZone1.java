@@ -10,7 +10,8 @@ package demoman;
 /**		
 *	This class contains the autonomous program "AutonomousZone1"
 *	
-*	@author ben                                                  
+*	@author ben   
+*	@author eric                                               
 *
 */
 
@@ -24,6 +25,12 @@ public class AutonomousZone1 {
 	*
 	*/
 	static void run(){
+	
+		// I don't care where you are.  If you can kick, go for it.
+		if (Hardware.ballSensor.get()) {
+			Kicking.kickBall();
+		}
+	
 		double timerValue=Demoman.autonomousTimer.get();
 		if(timerValue<.5){
 		
