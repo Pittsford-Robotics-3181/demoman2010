@@ -8,11 +8,15 @@ package demoman;
 *		Filename:	AutonomousZone2.java
 */
 /**		
-*	This class contains the autonomous program "AutonomousZone1"
+*	This class contains the autonomous program "AutonomousZone2"
 *	
 *	@author Chris                                                  
 *
 */
+/**
+ * @todo Figure out the coding to turn the robot.
+ * @author Chris
+ */
 
 /* Execute this Autonomous Method if:
 
