@@ -17,82 +17,104 @@ import edu.wpi.first.wpilibj.*;
 
 public class Kicking {
 
-	// [if you're looking for those kicking variables, they've been replaced by threading]
-	
+        // IMPORTANT!!! The kickerLatchSwitch is WIRED BACKWARDS!!!!
+
+        //
+        public static Timer latchTimer = new Timer();
+        public static Timer kickTimer = new Timer();
+        public static boolean canKick = true;
+
 	/**
 	*	Kick the ball.  ONLY CALL THIS FUNCTION IF YOU ACTUALLY WANT TO KICK GODDAMMIT.
 	*	Uses a thread to retract.  If the thread isn't working check out Kicking.java.bak
 	*	to view the previous solution without messing with the SVN.
 	*
 	*/
-	public static void kickBall() {
-		/*
-		 *	When not called:	- Fire S3 and S4 to keep the pressure up
-		 *	When called:		- Fire S5, which releases the latch
-		 *						- Start a timer
-		 *	S1, S2 fire 1.5 seconds afterwards
-		 *	S3, S4 turn off 
-		 */
-
-		// Shoot if we can
-		if (Hardware.kickerLatchSwitch.get()) {
-			Hardware.solenoids[4].set(true);
-			// Retract the kicker
-			try {
-				(new Thread(new RetractRunnable())).start();
-			} catch (Exception ex) {
-				// This shouldn't ever happen
-				System.out.println("Kicking thread has been interrupted :o");
-			}
-		} else {
-            // Can't kick because the kicker isn't there!
-		}
-		
-		// DIAGNOSTIC - use a solenoid because println eats all the ram
-		Hardware.solenoids[7].set(Hardware.kickerLatchSwitch.get());
-		
-	}
-	
-	/**
-	*	Perform maintenance on the pressure.  Call in all loops you're kicking.
-	*/
-	public static void pressureMaintenance() {
-		// If the latch is closed, make sure S1 and S2 are off, because they've done their job
-		if (Hardware.kickerLatchSwitch.get()) {
-			Hardware.solenoids[0].set(false);
-			Hardware.solenoids[1].set(false);
-			// Make sure 3&4 are on to repressurize the piston, assuming that's what we want
-            if (Hardware.DS.getDigitalInput(8)) {
-                Hardware.solenoids[2].set(true);
-                Hardware.solenoids[3].set(true);
+        public static void kickBall()
+        {
+            // Make sure the reset sequence has finished
+            if (!canKick)
+            {
+                return;
             }
-		}
-	}
-	
-	// INNER CLASSS
-	public static class RetractRunnable implements Runnable {
-	
-		public void run() {
-			// Wait .5 seconds
-			try {
-			Thread.sleep(500); } catch (Exception e) {}
-			// Reset the latch solenoid
-			Hardware.solenoids[4].set(false);
-			
-			// Wait .75 seconds
-			try {
-			Thread.sleep(750); } catch (Exception e) {}
-			// Retract the kicker
-			while (!Hardware.kickerLatchSwitch.get()) {
-				// Uh, stop pressurizing
-				Hardware.solenoids[2].set(false);
-				Hardware.solenoids[3].set(false);
-				// And start retracting
-				Hardware.solenoids[0].set(true);
-				Hardware.solenoids[1].set(true);
-			}
-		}
-	}
-	// END INNER CLASS
+
+            // Should already be off, but make sure we aren't trying to retract
+            Hardware.solenoids[0].set(false);
+            
+            // Release the hounds....
+            Hardware.solenoids[4].set(true);
+
+            // And start the cycle
+            canKick = false;
+            kickTimer.start();
+        }
+
+        public static void pressureMaintenance()
+        {
+            //--- post kick maintenance ---
+            // 1.5 seconds after fire:
+            if (kickTimer.get() > 0.5)
+            {
+                // Open the gates!  Let the kicker in!
+                Hardware.solenoids[4].set(true);
+            }
+
+            // 1.7 seconds after fire:
+            if (kickTimer.get() > 0.85)
+            {
+                // Start retracting
+                Hardware.solenoids[0].set(true);
+                //kickTimer.stop();
+                //kickTimer.reset();
+            }
+
+            //--- limit switch stuff ---
+            if (1 == 2)
+            {
+                // Kicker is out, DI = 1
+            }
+            else
+            {
+                // Kicker is in, DI = 0
+                    // Since the limit switch isn't working properly, wait
+                    // until you can be pretty damn sure the kicker is in
+                    // before you do stuff.
+                if (kickTimer.get() > 2.35 && kickTimer.get() < 3.0)
+                {
+                    // It's been one second since the kicker returned
+
+                    // Keep the pressure on, but drop the latch
+                    Hardware.solenoids[0].set(true);
+                    Hardware.solenoids[4].set(false);
+                    
+                } else if (kickTimer.get() >= 3.0) {
+                    // It's been 1.5 seconds since the kicker returned
+
+                    // Turn the pressure off
+                    Hardware.solenoids[0].set(false);
+                    Hardware.solenoids[4].set(false);
+
+                    // Reset the timer, we've done all we need
+                    kickTimer.stop();
+                    kickTimer.reset();
+
+                    // And the cycle is complete
+                    canKick = true;
+                } else {
+                    // Kicker is in, but one second hasn't passed yet
+                    latchTimer.start();
+                }
+            }
+
+        }
+
+        public static void pressureInit()
+        {
+            kickTimer.stop();
+            kickTimer.reset();
+
+            latchTimer.stop();
+            latchTimer.reset();
+        }
 
 }

@@ -70,6 +70,17 @@ public class Winch {
 			llt.start();
 		}
 	}
+
+        public static void overrideLock()
+        {
+            locked = false;
+            actOnLockState();
+        }
+        public static void overrideUnlock()
+        {
+            locked = true;
+            actOnLockState();
+        }
 	
 	/** Act on our current state */
 	public static void actOnLockState() {

@@ -21,6 +21,8 @@ public class AutonomousDoNothing {
 	*	Just stop the robot.
 	*/
 	static void run() {
+                System.out.println("AutonomousDoNothing");
+
 		// Just in case, stop all moving parts
 		Hardware.robotDrive.stop();
 	}
