@@ -64,7 +64,7 @@ public class Hardware {
 	
 	// Digital Outputs
 		// Kicker Ready
-		public static DigitalOutput[] kickerReady = {
+	/*	public static DigitalOutput[] kickerReady = {
 			new DigitalOutput(4, 3), new DigitalOutput(4, 4)
 			};
 	
@@ -77,7 +77,7 @@ public class Hardware {
 		public static DigitalOutput[] winchLocked = {
 			new DigitalOutput(4, 7), new DigitalOutput(4, 8)
 			};
-	
+	*/
 	// Compressor
 		public static Compressor compressor  = new Compressor(14, 1);
 	

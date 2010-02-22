@@ -49,7 +49,7 @@ public class DriveHub extends Joystick {
 	/**
 	*	Provide digital output to the driver
 	*/
-	public void giveOutput() {
+	/*public void giveOutput() {
 		// Is the kicker loaded?
 		if (Hardware.kickerLatchSwitch.get()) {
                         Hardware.kickerReady[0].set(true);
@@ -68,6 +68,6 @@ public class DriveHub extends Joystick {
                         Hardware.winchLocked[1].set(true);
 		}
 	
-	}
+	}*/
 	
 }

@@ -96,6 +96,7 @@ public class Demoman extends IterativeRobot {
 		Hardware.robotDrive.stop();
 		
 		// Find out which autnomous mode we want
+                autonomousMode = 0;
 		// Leftmost worth 4
 		autonomousMode += Hardware.autonomousSwitches[0].get() ? 4 : 0;
 		// Middle worth 2
@@ -116,6 +117,7 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
+                Kicking.pressureInit();
                 // Failsafe for DSDI5 check.  In case somebody was pushing
                 // the button during the other checks.
                 if (Hardware.DS.getDigitalInput(5))
@@ -137,7 +139,7 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void disabledPeriodic() {
-		//Watchdog.getInstance().feed();
+		Watchdog.getInstance().feed();
 	}
 	
 	/**
@@ -148,8 +150,10 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void autonomousPeriodic() {
-		updateDashboard();
-				switch (autonomousMode) {
+                Watchdog.getInstance().feed();
+                updateDashboard();
+                System.out.println("Autonomous mode: " + autonomousMode);
+			switch (autonomousMode) {
 			case 0:
 				AutonomousDoNothing.run();
 				break;
@@ -159,6 +163,9 @@ public class Demoman extends IterativeRobot {
 			case 2:
 				AutonomousZone2.run();
 				break;
+                        case 3:
+                                AutonomousZone3.run();
+                                break;
 		}
 		Kicking.pressureMaintenance();
 	}
@@ -173,7 +180,9 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void teleopPeriodic() {
-		
+
+                Watchdog.getInstance().feed();
+            
 		// Are we in "stopped" mode?  This is a mode where we disabled ourselves WITHOUT the use
 		// of the e-stop button.  Useful for demonstrations.
 			// commented out until i can get a verification on the hardware
@@ -186,7 +195,6 @@ public class Demoman extends IterativeRobot {
 		updateDashboard();
 		double goLeft = Hardware.leftJoystick.getY();
 		double goRight = Hardware.rightJoystick.getY();
-                goRight *= -1; // tmp fix cause mech sucks
 		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
@@ -199,7 +207,7 @@ public class Demoman extends IterativeRobot {
 		// (UN)Locking the winch?
                 // Since DSDI5 is normally closed, we reverse its logic--
                 // but make sure that it's present before we reverse its logic.
-		if (!Hardware.DS.getDigitalInput(5) && fiveHookedUp) {
+/*		if (!Hardware.DS.getDigitalInput(5) && fiveHookedUp) {
 			Winch.changeLockState();
 		}
 		Winch.actOnLockState();
@@ -213,7 +221,16 @@ public class Demoman extends IterativeRobot {
 			Winch.lift(Hardware.leftJoystick.getX());
 		} else {
 			Winch.stop();
-		}
+		}*/
+
+                // new winch code, built at the rally
+                if (Hardware.rightJoystick.getRawButton(4))
+                {
+                    Winch.overrideUnlock();
+                    Winch.lift(Hardware.rightJoystick.getX());
+                } else {
+                    Winch.overrideLock();
+                } 
 
 		// Control the ball roller
 		if (Hardware.DS.getDigitalInput(3)) {
@@ -227,7 +244,7 @@ public class Demoman extends IterativeRobot {
 		}
 		
 		// Give output to the driver
-		Hardware.DS.giveOutput();
+		//Hardware.DS.giveOutput();
 
 	}
 	

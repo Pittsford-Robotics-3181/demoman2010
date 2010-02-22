@@ -25,7 +25,8 @@ public class AutonomousZone1 {
 	*
 	*/
 	static void run(){
-	
+                System.out.println("AutonomousZone1");
+            
 		// I don't care where you are.  If you can kick, go for it.
 		if (Hardware.ballSensor.get()) {
 			Kicking.kickBall();
@@ -34,12 +35,12 @@ public class AutonomousZone1 {
 		double timerValue=Demoman.autonomousTimer.get();
 		if(timerValue<.5){
 		
-		}else if(timerValue<1.5){
-			Hardware.robotDrive.driveAtSpeed(1.0,1.0);
-		}else if(timerValue<3.0){
+		}else if(timerValue<3.2){
+                    // everything is BACKWAAAARDS in autonomous
+			Hardware.robotDrive.driveAtSpeed(-.35,-.35);
+		}else {
 			Hardware.robotDrive.stop();
 			Kicking.kickBall();
-		}else{
 		
 		}
 	}

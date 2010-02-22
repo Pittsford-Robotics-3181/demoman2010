@@ -79,7 +79,8 @@ public class DriveSystem extends RobotDrive {
 
 	// Ramp to a given speed
 	public void driveAtSpeed(double leftTarget, double rightTarget) {
-	
+                rightTarget *= -1;  // tmp fix
+
 		// Left
 		double leftDelta = leftTarget - lastLeftSpeed;
 		if (Math.abs(leftDelta) > RAMPING_CONSTANT) {

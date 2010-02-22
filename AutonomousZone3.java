@@ -10,102 +10,50 @@ package demoman;
 /**
 *	This class contains the autonomous program "AutonomousZone3"
 *
-*	@author Chris
-*
-*/
-
-/* Execute this Autonomous Method if:
-
-----------------------------------
-|   [Robot]                      |  --- Zone 3
-|      |                         |
-|      v                         |
-|                                |
-|   [Ball ]   [Empty]   [Empty]  |
-|                                |
-|   [Empty]   [Ball ]   [Empty]  |
-|                                |
-|   [Empty]   [Empty]   [Ball ]  |
-|                                |
-----------------------------------
-
 */
 
 public class AutonomousZone3 {
 
-	/*
-	In ENGLISH:
-
-	Wait (.5 sec)                    .5
-	Go forward (1 sec)              1.5
-	Stop
-	Kick (1.5 sec)                  3.0
-	Rotate Right (90 deg) (1 sec)   4.0
-	Go forward (1 sec)              5.0
-	Stop
-	Rotate Left (90 deg) (1 sec)    6.0
-	Go forward (1 sec)              7.0
-	Stop
-	Kick (1.5 sec)                  8.5
-	Rotate Right (90 deg) (1 sec)   9.5
-	Go forward (1 sec)             10.5
-	Stop
-	Rotate Left (90 deg) (1 sec)   11.5
-	Go forward (1 sec)             12.5
-	Stop
-	Kick (1.5 sec)                 14.0
-	End
-	*/
-
 	static void run(){
-	
+
+                System.out.println("AutonomousZone3");
+
 		if (Hardware.ballSensor.get()) {
 			Kicking.kickBall();
 		}
-	
+
 		double timerValue=Demoman.autonomousTimer.get();
-		if(timerValue<.5){}
-		else if(timerValue<1.5){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
+		if(timerValue<.5){
+                    Hardware.robotDrive.stop();
+                }
+		else if(timerValue<2.0){
+			Hardware.robotDrive.driveAtSpeed(-.35, -.35);
 		}
-		else if(timerValue<3.0){
+		else if(timerValue<2.9){
 			Hardware.robotDrive.stop();
 			Kicking.kickBall();
 		}
-		else if(timerValue<4.0){
-			//Rotate right - use Hardware.robotDrive.driveAtSpeed(-1.0,1.0)?
+		else if(timerValue<3.5){
+			//Rotate right 45 degrees
+                        Hardware.robotDrive.driveAtSpeed(.6,-.6);
 		}
-		else if(timerValue<5.0){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
+		else if(timerValue<5.8){
+			Hardware.robotDrive.driveAtSpeed(-0.35,-0.35);
 		}
-		else if(timerValue<6.0){
-			Hardware.robotDrive.stop();
-			//Rotate left - use Hardware.robotDrive.driveAtSpeed(1.0,-1.0)?
-		}
-		else if(timerValue<7.0){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
-		}
-		else if(timerValue<8.5){
-			Hardware.robotDrive.stop();
-			Kicking.kickBall();
-		}
-		else if(timerValue<9.5){
-			//Rotate right - use Hardware.robotDrive.driveAtSpeed(-1.0,1.0)?
-		}
-		else if(timerValue<10.5){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
-		}
-		else if(timerValue<11.5){
-			Hardware.robotDrive.stop();
-			//Rotate left - use Hardware.robotDrive.driveAtSpeed(1.0,-1.0)?
-		}
-		else if(timerValue<12.5){
-			Hardware.robotDrive.driveAtSpeed(0.5,0.5);
-		}
-		else if(timerValue<14.0){
-			Hardware.robotDrive.stop();
-			Kicking.kickBall();
-		}
-		else{}
+		else if (timerValue<6.2) {
+                    Hardware.robotDrive.stop();
+                    Kicking.kickBall();
+                } else if (timerValue < 6.65) {
+                        Hardware.robotDrive.driveAtSpeed(-.35,-.35);
+                    
+                } else if (timerValue < 7.18) {
+                    // Rotate left 45 degrees
+                    Hardware.robotDrive.driveAtSpeed(-0.6, 0.6);
+                } else if (timerValue < 8.5) {
+                    Hardware.robotDrive.driveAtSpeed(-.35, -.35);
+                } else {
+                    Hardware.robotDrive.stop();
+                    Kicking.kickBall();
+                }
 	}
 }
