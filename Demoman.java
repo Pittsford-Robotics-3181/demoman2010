@@ -155,7 +155,7 @@ public class Demoman extends IterativeRobot {
                 System.out.println("Autonomous mode: " + autonomousMode);
 			switch (autonomousMode) {
 			case 0:
-				AutonomousDoNothing.run();
+//				AutonomousDoNothing.run();
 				break;
 			case 1:
 				AutonomousZone1.run();
@@ -193,16 +193,28 @@ public class Demoman extends IterativeRobot {
 		}*/
             // Respond to drivers
 		updateDashboard();
-		double goLeft = Hardware.leftJoystick.getY();
-		double goRight = Hardware.rightJoystick.getY();
-		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
+                double goLeft;
+                double goRight;
+                if (Hardware.rightJoystick.getRawButton(2) || Hardware.leftJoystick.getRawButton(2)){
+
+                    goLeft = Hardware.leftJoystick.getY() * .7;
+                    goRight = Hardware.rightJoystick.getY() * .7;
+
+                } else {
+
+                    goLeft = Hardware.leftJoystick.getY();
+                    goRight = Hardware.rightJoystick.getY();
+
+                }
+
+                Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
 		// See if we're supposed to be kicking the ball.
 		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || Hardware.DS.getDigitalInput(6)) {
 			Kicking.kickBall();
 		}
 		Kicking.pressureMaintenance();
-		
+		System.out.println(Hardware.kickerLatchSwitch.get());
 		
 		// (UN)Locking the winch?
                 // Since DSDI5 is normally closed, we reverse its logic--
@@ -216,7 +228,7 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.DS.getDigitalInput(7)) {
 			Winch.lift(Hardware.DS.getAnalogInput("y"));
 		} else if (Hardware.rightJoystick.getRawButton(4)) {
-            Winch.lift(Hardware.rightJoystick.getX());
+                        Winch.lift(Hardware.rightJoystick.getX());
 		} else if (Hardware.leftJoystick.getRawButton(4)) {
 			Winch.lift(Hardware.leftJoystick.getX());
 		} else {
@@ -226,10 +238,25 @@ public class Demoman extends IterativeRobot {
                 // new winch code, built at the rally
                 if (Hardware.rightJoystick.getRawButton(4))
                 {
+                    /* ---------------------------------- */
+                    /* joystick input                     */
+                    /* ---------------------------------- */
                     Winch.overrideUnlock();
                     Winch.lift(Hardware.rightJoystick.getX());
                 } else {
-                    Winch.overrideLock();
+                    if (Hardware.DS.getDigitalInput(7))
+                    {
+                        /* --------------------------------- */
+                        /* Reese's board Input               */
+                        /* --------------------------------- */
+                       Winch.overrideUnlock();
+                       Winch.lift(Hardware.DS.getAnalogInput("y"));
+                    }
+                    else
+                    {
+                        Winch.lift(0.0);
+                        Winch.overrideLock();
+                    }
                 } 
 
 		// Control the ball roller
@@ -242,8 +269,8 @@ public class Demoman extends IterativeRobot {
 			// Neither are true, so let's turn it off (Flipper is in the middle)
 			Hardware.ballRoller.set(0);
 		}
-		
-		// Give output to the driver
+	 
+                // Give output to the driver
 		//Hardware.DS.giveOutput();
 
 	}
