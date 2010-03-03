@@ -57,6 +57,10 @@ public class Kicking {
             {
                 // Open the gates!  Let the kicker in!
                 Hardware.solenoids[4].set(true);
+                //for slow kicker option not mechanically implimented
+                if (Hardware.DS.getDigitalInput(8)) {
+			Hardware.solenoids[2].set(true);
+		}
             }
 
             // 1.7 seconds after fire:
@@ -66,6 +70,10 @@ public class Kicking {
                 Hardware.solenoids[0].set(true);
                 //kickTimer.stop();
                 //kickTimer.reset();
+                //for slow kicker option not mechanically implimented
+                if (Hardware.DS.getDigitalInput(8)) {
+			Hardware.solenoids[2].set(false);
+		}
             }
 
             //--- limit switch stuff ---
@@ -101,6 +109,10 @@ public class Kicking {
                     // And the cycle is complete
                     canKick = true;
                 } else {
+                        //for slow kicker option not mechanically implimented
+                        if (Hardware.DS.getDigitalInput(8)) {
+                        	Hardware.solenoids[2].set(true);
+                        }
                     // Kicker is in, but one second hasn't passed yet
                     latchTimer.start();
                 }
