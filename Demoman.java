@@ -35,11 +35,11 @@ public class Demoman extends IterativeRobot {
 	// Camera
 	AxisCamera camera;
 
-        // There was a problem with the wiring of DS DI 5, it's
-        // normally closed.  Reversing logic causes problems
-        // if the DS isn't hooked up... so run checks to make
-        // sure it is, and if not, we take appropriate action
-        boolean fiveHookedUp = false;
+	// There was a problem with the wiring of DS DI 5, it's
+	// normally closed.  Reversing logic causes problems
+	// if the DS isn't hooked up... so run checks to make
+	// sure it is, and if not, we take appropriate action
+	boolean fiveHookedUp = false;
 
 	/*--- Initialization Routines ---*/
 	/**
@@ -50,11 +50,12 @@ public class Demoman extends IterativeRobot {
 	public void robotInit() {
 		System.out.println("Robot has been initialized!");
 
-                // Check for the presence of DSDI five
-                if (Hardware.DS.getDigitalInput(5))
-                {
-                    fiveHookedUp = true;
-                }
+		// Check for the presence of DSDI five
+		if (Hardware.DS.getDigitalInput(5))
+		{
+			fiveHookedUp = true;
+		}
+
 		/*camera = AxisCamera.getInstance();
 		camera.writeCompression(0);
 		camera.writeBrightness(10);
@@ -67,12 +68,12 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void disabledInit() {
-                // Failsafe for DSDI5 check.  In case somebody was pushing
-                // the button during the other checks.
-                if (Hardware.DS.getDigitalInput(5))
-                {
-                    fiveHookedUp = true;
-                }
+		// Failsafe for DSDI5 check.  In case somebody was pushing
+		// the button during the other checks.
+		if (Hardware.DS.getDigitalInput(5))
+		{
+			fiveHookedUp = true;
+		}
 
 		System.out.println("Robot has been disabled id-feb17");
 	}
@@ -86,18 +87,18 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void autonomousInit() {
 		System.out.println("Robot has been put into autonomous mode");
-                // Failsafe for DSDI5 check.  In case somebody was pushing
-                // the button during the other checks.
-                if (Hardware.DS.getDigitalInput(5))
-                {
-                    fiveHookedUp = true;
-                }
+		// Failsafe for DSDI5 check.  In case somebody was pushing
+		// the button during the other checks.
+		if (Hardware.DS.getDigitalInput(5))
+		{
+			fiveHookedUp = true;
+		}
 
-                // Stop everything.
+		// Stop everything.
 		Hardware.robotDrive.stop();
 		
 		// Find out which autnomous mode we want
-                autonomousMode = 0;
+		autonomousMode = 0;
 		// Leftmost worth 4
 		autonomousMode += Hardware.autonomousSwitches[0].get() ? 4 : 0;
 		// Middle worth 2
@@ -118,14 +119,14 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void teleopInit() {
 		System.out.println("Robot has been put into teleoperator mode");
-                Kicking.pressureInit();
-                // Failsafe for DSDI5 check.  In case somebody was pushing
-                // the button during the other checks.
-                if (Hardware.DS.getDigitalInput(5))
-                {
-                    fiveHookedUp = true;
-                }
-                Hardware.robotDrive.stop();
+		Kicking.pressureInit();
+		// Failsafe for DSDI5 check.  In case somebody was pushing
+		// the button during the other checks.
+		if (Hardware.DS.getDigitalInput(5))
+		{
+			fiveHookedUp = true;
+		}
+		Hardware.robotDrive.stop();
 		// Make sure the compressor is on
 		Hardware.compressor.start();
 	}
@@ -151,22 +152,22 @@ public class Demoman extends IterativeRobot {
 	*
 	*/
 	public void autonomousPeriodic() {
-                Watchdog.getInstance().feed();
-                updateDashboard();
-                System.out.println("Autonomous mode: " + autonomousMode);
-			switch (autonomousMode) {
-			case 0:
-//				AutonomousDoNothing.run();
-				break;
-			case 1:
-				AutonomousZone1.run();
-				break;
-			case 2:
-				AutonomousZone2.run();
-				break;
-                        case 3:
-                                AutonomousZone3.run();
-                                break;
+		Watchdog.getInstance().feed();
+		updateDashboard();
+		System.out.println("Autonomous mode: " + autonomousMode);
+		switch (autonomousMode) {
+		case 0:
+//			AutonomousDoNothing.run();
+			break;
+		case 1:
+			AutonomousZone1.run();
+			break;
+		case 2:
+			AutonomousZone2.run();
+			break;
+		case 3:
+			AutonomousZone3.run();
+			break;
 		}
 		Kicking.pressureMaintenance();
 	}
@@ -182,8 +183,8 @@ public class Demoman extends IterativeRobot {
 	*/
 	public void teleopPeriodic() {
 
-                Watchdog.getInstance().feed();
-            
+		Watchdog.getInstance().feed();
+			
 		// Are we in "stopped" mode?  This is a mode where we disabled ourselves WITHOUT the use
 		// of the e-stop button.  Useful for demonstrations.
 			// commented out until i can get a verification on the hardware
@@ -192,54 +193,52 @@ public class Demoman extends IterativeRobot {
 			Hardware.robotDrive.stop();
 			return;
 		}*/
-            // Respond to drivers
+		// Respond to drivers
 		updateDashboard();
-                double goLeft;
-                double goRight;
-                if (Hardware.rightJoystick.getRawButton(2) || Hardware.leftJoystick.getRawButton(2)){
-
-                    goLeft = Hardware.leftJoystick.getY() * .7;
-                    goRight = Hardware.rightJoystick.getY() * .7;
-
-                } else {
-
-                    goLeft = Hardware.leftJoystick.getY();
-                    goRight = Hardware.rightJoystick.getY();
-
-                }
-
-                Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
 		
+		double goLeft;
+		double goRight;
+		if (Hardware.rightJoystick.getRawButton(2) || Hardware.leftJoystick.getRawButton(2)){
+			goLeft = Hardware.leftJoystick.getY() * .7;
+			goRight = Hardware.rightJoystick.getY() * .7;
+		} else {
+			goLeft = Hardware.leftJoystick.getY();
+			goRight = Hardware.rightJoystick.getY();
+		}
+		Hardware.robotDrive.driveAtSpeed(goLeft, goRight);
+
 		// See if we're supposed to be kicking the ball.
 		if (Hardware.rightJoystick.getTrigger() || Hardware.leftJoystick.getTrigger() || Hardware.DS.getDigitalInput(6)) {
 			Kicking.kickBall();
 		}
 		Kicking.pressureMaintenance();
 
-                //set enhanced I/O digital outputs for kicker retracted
-                if(!Hardware.kickerLatchSwitch.get()){
-                	try {
-                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(1, true);
-                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(2, true);
-                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(3, true);
-                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(4, true);
-                	} catch (EnhancedIOException ex) {
-                		ex.printStackTrace();
-       			}
-                }else{
-        		try {
-            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(1, false);
-            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(2, false);
-            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(3, false);
-            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(4, false);
-        		} catch (EnhancedIOException ex) {
-            			ex.printStackTrace();
-       			}
-                }
+		//set enhanced I/O digital outputs for kicker retracted
+		if (!Hardware.kickerLatchSwitch.get()) {
+			try {
+				DriverStationEnhancedIO dseio = DriverStation.getInstance().getEnhancedIO();
+				dseio.setDigitalOutput(1, true);
+				dseio.setDigitalOutput(2, true);
+				dseio.setDigitalOutput(3, true);
+				dseio.setDigitalOutput(4, true);
+			} catch (EnhancedIOException ex) {
+				System.out.println("Error in Enhanced IO.");
+			}
+		} else {
+			try {
+				DriverStationEnhancedIO dseio = DriverStation.getInstance().getEnhancedIO();
+				dseio.setDigitalOutput(1, false);
+				dseio.setDigitalOutput(2, false);
+				dseio.setDigitalOutput(3, false);
+				dseio.setDigitalOutput(4, false);
+			} catch (EnhancedIOException ex) {
+				System.out.println("Error in Enhanced IO.");
+			}
+		}
 
 		// (UN)Locking the winch?
-                // Since DSDI5 is normally closed, we reverse its logic--
-                // but make sure that it's present before we reverse its logic.
+				// Since DSDI5 is normally closed, we reverse its logic--
+				// but make sure that it's present before we reverse its logic.
 /*		if (!Hardware.DS.getDigitalInput(5) && fiveHookedUp) {
 			Winch.changeLockState();
 		}
@@ -249,36 +248,36 @@ public class Demoman extends IterativeRobot {
 		if (Hardware.DS.getDigitalInput(7)) {
 			Winch.lift(Hardware.DS.getAnalogInput("y"));
 		} else if (Hardware.rightJoystick.getRawButton(4)) {
-                        Winch.lift(Hardware.rightJoystick.getX());
+						Winch.lift(Hardware.rightJoystick.getX());
 		} else if (Hardware.leftJoystick.getRawButton(4)) {
 			Winch.lift(Hardware.leftJoystick.getX());
 		} else {
 			Winch.stop();
 		}*/
 
-                // new winch code, built at the rally
-                if (Hardware.rightJoystick.getRawButton(4))
-                {
-                    /* ---------------------------------- */
-                    /* joystick input                     */
-                    /* ---------------------------------- */
-                    Winch.overrideUnlock();
-                    Winch.lift(Hardware.rightJoystick.getX());
-                } else {
-                    if (Hardware.DS.getDigitalInput(7))
-                    {
-                        /* --------------------------------- */
-                        /* Reese's board Input               */
-                        /* --------------------------------- */
-                       Winch.overrideUnlock();
-                       Winch.lift(Hardware.DS.getAnalogInput("y"));
-                    }
-                    else
-                    {
-                        Winch.lift(0.0);
-                        Winch.overrideLock();
-                    }
-                } 
+		// new winch code, built at the rally
+		if (Hardware.rightJoystick.getRawButton(4))
+		{
+			/* ---------------------------------- */
+			/* joystick input					 */
+			/* ---------------------------------- */
+			Winch.overrideUnlock();
+			Winch.lift(Hardware.rightJoystick.getX());
+		} else {
+			if (Hardware.DS.getDigitalInput(7))
+			{
+				/* --------------------------------- */
+				/* Reese's board Input			   */
+				/* --------------------------------- */
+			   Winch.overrideUnlock();
+			   Winch.lift(Hardware.DS.getAnalogInput("y"));
+			}
+			else
+			{
+				Winch.lift(0.0);
+				Winch.overrideLock();
+			}
+		} 
 
 		// Control the ball roller
 		if (Hardware.DS.getDigitalInput(3)) {
@@ -291,14 +290,14 @@ public class Demoman extends IterativeRobot {
 			Hardware.ballRoller.set(0);
 		}
 	 
-                // Give output to the driver
+		// Give output to the driver
 		//Hardware.DS.giveOutput();
 
 	}
 	
 	/**
 	*	Update the dashboard with cool information.  Talk to Reese if you want to know specifics
-	*	about this function, he got it from teh internetz and put it in here, but didn't both
+	*	about this function, he got it from teh internetz and put it in here, but didn't bother
 	*	to write documentation for it.
 	*
 	*/
