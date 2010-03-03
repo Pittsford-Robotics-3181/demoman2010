@@ -1,4 +1,4 @@
-Thanks to all those who made this robot awesome.
+Thanks to all those who made this robot haz awesome.
 
 The only way our robot got finished:
 01010010 01001111 01000010 
@@ -60,15 +60,15 @@ Programmer, Doc Writer, Team Superhero:
    | |   | (   ) || |   ) || (      | |   | || |      | (      
    | |   | )   ( || (__/  )| )      | (___) || (____/\| (____/\
    )_(   |/     \|(______/ |/       (_______)(_______/(_______/
-            
-			
+
+
 Programmer, guy who played RISK during work:                                                                                        
     |           /    /              /             
  ___| ___  ___ (___ (___       ___ (___  ___  ___ 
 |   )|___)|   )|    |   )     |___ |    |   )|   )
 |__/ |__  |__/||__  |  /       __/ |__  |__/||    
-                                                  
-										  
+
+
 Guy who did stuff when the rest of us were too lazy:                                                       
   ##   #    # #####  #####  ###### #    #  ##   ####     #####    ##   #####  
  #  #  ##   # #    # #    # #      #    #   #  #         #    #  #  #  #    # 
@@ -87,4 +87,15 @@ Kid who thinks he can program but can't.  But he's okay at electrical I guess:
  O  o  o O   o  o       O   O   o  O        o   O  O   o O   o  O  o  o 
  o  O  O o   O  O       o   o   O  o        O   o  o   O o   O  o  O  O 
  O  o  o `OoO'  o       `oO `OoO'o Oo       `OoO'o `OoO' `OoO'  O  o  o 
-                                                                        
+ 
+ 
+Person who tried to learn Java (somewhat successful):
+   _,.----.  ,--.-,,-,--,             .=-.-.  ,-,--.
+ .' .' -   \/==/  /|=|  | .-.,.---.  /==/_ /,-.'-  _\
+/==/  ,  ,-'|==|_ ||=|, |/==/  `   \|==|, |/==/_ ,_.'
+|==|-   |  .|==| ,|/=| _|==|-, .=., |==|  |\==\  \
+|==|_   `-' \==|- `-' _ |==|   '='  /==|- | \==\ -\
+|==|   _  , |==|  _     |==|- ,   .'|==| ,| _\==\ ,\
+\==\.       /==|   .-. ,\==|_  . ,'.|==|- |/==/\/ _ |
+ `-.`.___.-'/==/, //=/  /==/  /\ ,  )==/. /\==\ - , /
+            `--`-' `-`--`--`-`--`--'`--`-`  `--`---'
