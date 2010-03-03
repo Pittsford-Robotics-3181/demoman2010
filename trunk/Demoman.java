@@ -1,5 +1,6 @@
 package demoman;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DriverStationEnhancedIO.EnhancedIOException;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.NIVisionException;
@@ -214,8 +215,28 @@ public class Demoman extends IterativeRobot {
 			Kicking.kickBall();
 		}
 		Kicking.pressureMaintenance();
-		System.out.println(Hardware.kickerLatchSwitch.get());
-		
+
+                //set enhanced I/O digital outputs for kicker retracted
+                if(!Hardware.kickerLatchSwitch.get()){
+                	try {
+                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(1, true);
+                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(2, true);
+                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(3, true);
+                		DriverStation.getInstance().getEnhancedIO().setDigitalOutput(4, true);
+                	} catch (EnhancedIOException ex) {
+                		ex.printStackTrace();
+       			}
+                }else{
+        		try {
+            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(1, false);
+            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(2, false);
+            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(3, false);
+            			DriverStation.getInstance().getEnhancedIO().setDigitalOutput(4, false);
+        		} catch (EnhancedIOException ex) {
+            			ex.printStackTrace();
+       			}
+                }
+
 		// (UN)Locking the winch?
                 // Since DSDI5 is normally closed, we reverse its logic--
                 // but make sure that it's present before we reverse its logic.
