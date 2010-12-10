@@ -1,0 +1,7 @@
+Digital Sidecar 14 - Pressure Switch.  This is an input.
+
+Compressor (relay 1 on sidecar) stops at 115 PSI, starts repressurizing at 90-95 PSI.
+
+Need to make sure the compressor is on for both autonomous and teleop.
+
+Make sure the compressor shuts off when DriveSystem.stop() is called.
